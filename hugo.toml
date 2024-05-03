@@ -1,5 +1,5 @@
 baseURL = 'https://jmar.fr/'
-languageCode = 'fr-fr'
+languageCode = 'fr-FR'
 title = 'jmar.fr'
 theme = 'anubis2'
 
