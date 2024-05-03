@@ -1,0 +1,1336 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jmar.fr</title>
+    <link>/</link>
+    <description>jmar.fr</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-fr</language>
+    <lastBuildDate>Tue, 24 Aug 2021 14:13:00 +0200</lastBuildDate>
+    
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Wireguard: Déploiement et routage</title>
+      <link>/posts/wireguard-deploy-and-routing/</link>
+      <pubDate>Tue, 24 Aug 2021 14:13:00 +0200</pubDate>
+      
+      <guid>/posts/wireguard-deploy-and-routing/</guid>
+      <description>&lt;h2 id=&#34;installation&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#installation&#34;&gt;
+        #
+    &lt;/a&gt;
+    Installation
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;L&amp;rsquo;installation est très simple. Il y a beaucoup de sources disponibles sur internet. Perso j&amp;rsquo;ai suivi la doc de &lt;a href=&#34;https://wiki.archlinux.org/title/WireGuard&#34;&gt;https://wiki.archlinux.org/title/WireGuard&lt;/a&gt; qui est très complète. L&amp;rsquo;installation et la connexion se révèle très simple et ne pose pas de problème particulier.&lt;/p&gt;
+&lt;h3 id=&#34;configuration-serveur&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#configuration-serveur&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Configuration serveur
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;[Interface]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;ListenPort&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;51871&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;PrivateKey&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;(hidden)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;Address&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;192.168.10.1/24, fdc9:281f:04d7:9ee9::1/64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;[Peer]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;PublicKey&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;oENZzrPBIl1fBguDPNAzTEzBZtXh/3i1DoEXTBOg7jI=&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;AllowedIPs&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;192.168.10.2/32,fdc9:281f:04d7:9ee9::2/128&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;Endpoint&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;[2a01:cb05:83c2:5300:6665:4c49:6699:c6ea]:51871&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;configuration-côté-client&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#configuration-c%c3%b4t%c3%a9-client&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Configuration côté client
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;[Interface]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;Address&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;192.168.10.2/24, fdc9:281f:04d7:9ee9::2/64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;ListenPort&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;51871&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;PrivateKey&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;(hidden)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;[Peer]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;PublicKey&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;xOUJZ3xPKlZlXxpj7zOxK+7+5vT+Ey8iK38OnN/L8T0=&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;AllowedIPs&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;0.0.0.0/0, ::/0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;Endpoint&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;[2001:41d0:1:8c07::1]:51871&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;routage-des-clients&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#routage-des-clients&#34;&gt;
+        #
+    &lt;/a&gt;
+    Routage des clients
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Pour router l&amp;rsquo;ensemble du trafic des clients à travers le vpn, il y a quelques configurations à faire. Tout d&amp;rsquo;abord dans wireguard, il faut configurer les adresses autorisées côté client.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;AllowedIPs&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;0.0.0.0/0, ::/0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Si vous oubliez cette partie, vous aurez des messages de type &lt;code&gt;ping: sendmsg: Required key not available&lt;/code&gt; lorsque vous tenterez un ping vers une IP en dehors de votre réseau.&lt;/p&gt;
+&lt;p&gt;Pour cette partie, il est fortement recommandé d&amp;rsquo;utiliser le script wg-quick qui est inclus dans le paquet wireguard-tools. Ce script va prendre la configuration de votre interface dans /etc/wireguard/&lt;interface&gt;.conf pour créer l&amp;rsquo;interface réseau, lui associer les adresses IP que vous avez configurées et réaliser la partie la plus complexe qui est la création des règles de routage.&lt;/p&gt;
+&lt;p&gt;Ce script permet aussi de démarrer et arrêter simplement les tunnels.&lt;/p&gt;
+&lt;h2 id=&#34;gestion-du-firewalling-côté-serveur&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#gestion-du-firewalling-c%c3%b4t%c3%a9-serveur&#34;&gt;
+        #
+    &lt;/a&gt;
+    Gestion du firewalling côté serveur
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Côté serveur j&amp;rsquo;utilise firewalld pour gérer mes règles de firewall en fonction de différentes zones. J&amp;rsquo;ai tout d&amp;rsquo;abord créé une zone dédiée à wireguard que j&amp;rsquo;ai attaché à mon interface wg0. L&amp;rsquo;ensemble des fluxs de cette interface sont autorisés.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --new-zone&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;wireguard --permanent 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --reload 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --zone&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;wireguard --set-target ACCEPT --permanent 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --zone&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;wireguard --change-interface&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;wg0 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --reload
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mon serveur est maintenant accessible depuis le client via le tunnel&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;root@ARCH wireguard# ping 192.168.10.1 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;PING 192.168.10.1 &lt;span style=&#34;color:#ff6ac1&#34;&gt;(&lt;/span&gt;192.168.10.1&lt;span style=&#34;color:#ff6ac1&#34;&gt;)&lt;/span&gt; 56&lt;span style=&#34;color:#ff6ac1&#34;&gt;(&lt;/span&gt;84&lt;span style=&#34;color:#ff6ac1&#34;&gt;)&lt;/span&gt; octets de données. 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff9f43&#34;&gt;64&lt;/span&gt; octets de 192.168.10.1 : &lt;span style=&#34;color:#ff5c57&#34;&gt;icmp_seq&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ttl&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ff9f43&#34;&gt;64&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;temps&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;18.1 ms 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff9f43&#34;&gt;64&lt;/span&gt; octets de 192.168.10.1 : &lt;span style=&#34;color:#ff5c57&#34;&gt;icmp_seq&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ff9f43&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ttl&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ff9f43&#34;&gt;64&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;temps&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;17.7 ms 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff9f43&#34;&gt;64&lt;/span&gt; octets de 192.168.10.1 : &lt;span style=&#34;color:#ff5c57&#34;&gt;icmp_seq&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ff9f43&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ttl&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ff9f43&#34;&gt;64&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;temps&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;17.3 ms 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;^C - statistiques ping 192.168.10.1 - &lt;span style=&#34;color:#ff9f43&#34;&gt;3&lt;/span&gt; paquets transmis, &lt;span style=&#34;color:#ff9f43&#34;&gt;3&lt;/span&gt; reçus, 0% packet loss, &lt;span style=&#34;color:#ff5c57&#34;&gt;time&lt;/span&gt; 2003ms rtt min/avg/max/mdev &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; 17.258/17.676/18.085/0.337 ms
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Par contre, je ne peux toujours pas accéder à internet à travers mon tunnel. Pour ce faire, il faut que j&amp;rsquo;active le masquerading (le SNAT automatique d&amp;rsquo;IPtables) à travers firewalld. Pour IPv4 pas de problème c&amp;rsquo;est supporté nativement dans firewalld et en plus il active automatiquement le forwarding d&amp;rsquo;ip.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --zone&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;public --add-masquerade --permanent 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --reload
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Pour IPv6, il faut faire une &amp;ldquo;rich rule&amp;rdquo;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd add-rich-rule&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;rule family=ipv6 masquerade&amp;#39;&lt;/span&gt; --permanent
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --reload
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;et tadaaaaa notre client a maintenant accès à internet à travers wireguard en IPv4 et IPv6&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PostgreSQL: Trouver des doublons dans une table</title>
+      <link>/posts/psql-doublons/</link>
+      <pubDate>Sat, 23 May 2015 14:13:00 +0200</pubDate>
+      
+      <guid>/posts/psql-doublons/</guid>
+      <description>&lt;p&gt;Dans PostgreSQL, il existe les window functions qui permettent de faire des calculs sur un ensemble d&amp;rsquo;éléments liés aux éléments courants. Dans le cas présent, nous allons demander à PostgreSQL de regrouper les éléments en fonction de la valeur de deux champs.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Jeu de test :&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;TABLE&lt;/span&gt; double (id &lt;span style=&#34;color:#ff5c57&#34;&gt;serial&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;PRIMARY&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;KEY&lt;/span&gt;, name &lt;span style=&#34;color:#ff5c57&#34;&gt;text&lt;/span&gt;, value &lt;span style=&#34;color:#ff5c57&#34;&gt;int&lt;/span&gt; );
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;INSERT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; double (name, value) &lt;span style=&#34;color:#ff6ac1&#34;&gt;VALUES&lt;/span&gt; (&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;nom1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;INSERT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; double (name, value) &lt;span style=&#34;color:#ff6ac1&#34;&gt;VALUES&lt;/span&gt; (&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;nom1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;2&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;INSERT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; double (name, value) &lt;span style=&#34;color:#ff6ac1&#34;&gt;VALUES&lt;/span&gt; (&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;nom1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;3&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;INSERT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; double (name, value) &lt;span style=&#34;color:#ff6ac1&#34;&gt;VALUES&lt;/span&gt; (&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;nom2&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;INSERT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; double (name, value) &lt;span style=&#34;color:#ff6ac1&#34;&gt;VALUES&lt;/span&gt; (&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;nom2&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;2&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;INSERT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; double (name, value) &lt;span style=&#34;color:#ff6ac1&#34;&gt;VALUES&lt;/span&gt; (&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;nom2&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;3&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;INSERT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; double (name, value) &lt;span style=&#34;color:#ff6ac1&#34;&gt;VALUES&lt;/span&gt; (&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;nom3&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;INSERT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; double (name, value) &lt;span style=&#34;color:#ff6ac1&#34;&gt;VALUES&lt;/span&gt; (&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;nom1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;INSERT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; double (name, value) &lt;span style=&#34;color:#ff6ac1&#34;&gt;VALUES&lt;/span&gt; (&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;nom1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Nous allons maintenant rechercher les doublons sur le couple nom, valeur.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;FROM&lt;/span&gt; ( &lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; id, name, row_number() OVER (PARTITION &lt;span style=&#34;color:#ff6ac1&#34;&gt;BY&lt;/span&gt; name, value &lt;span style=&#34;color:#ff6ac1&#34;&gt;ORDER&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;BY&lt;/span&gt; id &lt;span style=&#34;color:#ff6ac1&#34;&gt;ASC&lt;/span&gt; ) &lt;span style=&#34;color:#ff6ac1&#34;&gt;AS&lt;/span&gt; dup &lt;span style=&#34;color:#ff6ac1&#34;&gt;FROM&lt;/span&gt; double ) &lt;span style=&#34;color:#ff6ac1&#34;&gt;AS&lt;/span&gt; w &lt;span style=&#34;color:#ff6ac1&#34;&gt;WHERE&lt;/span&gt; dup &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Voici le résultat&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[&lt;span style=&#34;color:#ff6ac1&#34;&gt;local&lt;/span&gt;]&lt;span style=&#34;color:#ff6ac1&#34;&gt;/&lt;/span&gt;test &lt;span style=&#34;color:#ff6ac1&#34;&gt;=#&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;FROM&lt;/span&gt; (&lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; id, name, row_number() OVER (PARTITION &lt;span style=&#34;color:#ff6ac1&#34;&gt;BY&lt;/span&gt; name, value &lt;span style=&#34;color:#ff6ac1&#34;&gt;ORDER&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;BY&lt;/span&gt; id &lt;span style=&#34;color:#ff6ac1&#34;&gt;ASC&lt;/span&gt;) &lt;span style=&#34;color:#ff6ac1&#34;&gt;AS&lt;/span&gt; dup &lt;span style=&#34;color:#ff6ac1&#34;&gt;FROM&lt;/span&gt; double) &lt;span style=&#34;color:#ff6ac1&#34;&gt;AS&lt;/span&gt; pwet &lt;span style=&#34;color:#ff6ac1&#34;&gt;WHERE&lt;/span&gt; dup &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;id &lt;span style=&#34;color:#ff5c57&#34;&gt;│&lt;/span&gt; name &lt;span style=&#34;color:#ff5c57&#34;&gt;│&lt;/span&gt; dup 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;───┼──────┼─────&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;8&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;│&lt;/span&gt; nom1 &lt;span style=&#34;color:#ff5c57&#34;&gt;│&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;2&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;9&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;│&lt;/span&gt; nom1 &lt;span style=&#34;color:#ff5c57&#34;&gt;│&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;3&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;(&lt;span style=&#34;color:#ff9f43&#34;&gt;2&lt;/span&gt; lignes) 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;On peut ensuite imaginer une requête qui supprime les doublons :&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;DELETE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;FROM&lt;/span&gt; double &lt;span style=&#34;color:#ff6ac1&#34;&gt;WHERE&lt;/span&gt; id &lt;span style=&#34;color:#ff6ac1&#34;&gt;IN&lt;/span&gt; ( &lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; id &lt;span style=&#34;color:#ff6ac1&#34;&gt;FROM&lt;/span&gt; ( &lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; id, name, row_number() OVER (PARTITION &lt;span style=&#34;color:#ff6ac1&#34;&gt;BY&lt;/span&gt; name, value &lt;span style=&#34;color:#ff6ac1&#34;&gt;ORDER&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;BY&lt;/span&gt; id &lt;span style=&#34;color:#ff6ac1&#34;&gt;ASC&lt;/span&gt;) &lt;span style=&#34;color:#ff6ac1&#34;&gt;AS&lt;/span&gt; dup &lt;span style=&#34;color:#ff6ac1&#34;&gt;FROM&lt;/span&gt; double ) &lt;span style=&#34;color:#ff6ac1&#34;&gt;AS&lt;/span&gt; w &lt;span style=&#34;color:#ff6ac1&#34;&gt;WHERE&lt;/span&gt; dup &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt; ); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;DELETE&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;2&lt;/span&gt; Temps : &lt;span style=&#34;color:#ff9f43&#34;&gt;65&lt;/span&gt;,&lt;span style=&#34;color:#ff9f43&#34;&gt;681&lt;/span&gt; ms 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Mise en place de firewalld</title>
+      <link>/posts/firewalld/</link>
+      <pubDate>Sun, 26 Apr 2015 14:13:00 +0200</pubDate>
+      
+      <guid>/posts/firewalld/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#introduction&#34;&gt;
+        #
+    &lt;/a&gt;
+    Introduction
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;FirewallD est une surcouche à Iptables installée par défaut sur RedHat 7 et CentOS 7. Contrairement aux anciens modèles de parefeux (system-config-firewall/lokkit), chaque changement nécessitait un redémarrage complet du parefeu.
+FirewallD récupère les informations sur les règle parefeu active via D-BUS et réalise les changement dynamiquement via celui-ci en utilisant les méthodes d&amp;rsquo;authentification de PolicyKit.
+FirewallD permet aussi entre autre de créer différentes zones et d&amp;rsquo;y appliquer des règles différentes.&lt;/p&gt;
+&lt;h2 id=&#34;pour-commencer&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#pour-commencer&#34;&gt;
+        #
+    &lt;/a&gt;
+    Pour commencer
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;On commence par mettre en place la zone par défaut. Personnellement, j&amp;rsquo;utilise la zone &amp;ldquo;public&amp;rdquo; qui par défaut passe tous les flux à DROP.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --set-default-zone&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;public
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;On rend la configuration permanente :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --permanent --set-default-zone&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;public
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Puis on autorise le service SSH&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; firewall-cmd --zone&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;public --add-service ssh firewall-cmd --permanent --zone&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;public --add-service ssh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;création-dun-service-perso&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#cr%c3%a9ation-dun-service-perso&#34;&gt;
+        #
+    &lt;/a&gt;
+    Création d&amp;rsquo;un service perso
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;La création d&amp;rsquo;un service perso, permets de se faciliter la vie. J&amp;rsquo;ai eu besoin d&amp;rsquo;ouvrir des ports particuliers pour laisser passer mon client torrent.
+J&amp;rsquo;ai donc créer un service transmission.&lt;/p&gt;
+&lt;p&gt;Les configurations personnelles se trouvent dans &lt;strong&gt;/etc/firewalld/services&lt;/strong&gt;. J&amp;rsquo;y ai donc créé le fichier &lt;strong&gt;transmission.xml&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&amp;lt;!--?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34;?--&amp;gt;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;lt;service&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;lt;short&amp;gt;&lt;/span&gt;Transmission&lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;lt;/short&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;lt;description&amp;gt;&lt;/span&gt; Transmission Daemon Service&lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;lt;port&lt;/span&gt; &lt;span style=&#34;color:#57c7ff&#34;&gt;protocol=&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;udp&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#57c7ff&#34;&gt;port=&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;51413&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;lt;port&lt;/span&gt; &lt;span style=&#34;color:#57c7ff&#34;&gt;protocol=&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;tcp&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#57c7ff&#34;&gt;port=&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;51413&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;lt;/port&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;lt;/port&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;lt;/service&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Le fichier est découpé de la façon suivante :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;La définition du fichier XML&lt;/li&gt;
+&lt;li&gt;Ouverture de la définition du service&lt;/li&gt;
+&lt;li&gt;Description courte du service (qui apparait dans la liste des services)&lt;/li&gt;
+&lt;li&gt;Description complète du service&lt;/li&gt;
+&lt;li&gt;Liste des ports à ouvrir. Une ligne par port avec protocol=, port=&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;activation-du-service&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#activation-du-service&#34;&gt;
+        #
+    &lt;/a&gt;
+    Activation du service
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Pour commencer on charge le service :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --permanent --add-service&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;transmission --zone&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;public
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Et on recharge le firewall:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;firewall-cmd --reload
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Pypi Mirroring</title>
+      <link>/posts/pypi-mirroring/</link>
+      <pubDate>Tue, 12 Aug 2014 14:13:00 +0200</pubDate>
+      
+      <guid>/posts/pypi-mirroring/</guid>
+      <description>&lt;h2 id=&#34;installation-dun-mirroir-pypi-local&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#installation-dun-mirroir-pypi-local&#34;&gt;
+        #
+    &lt;/a&gt;
+    Installation d&amp;rsquo;un mirroir Pypi local
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;$ROOTDIR = Répertoire de stockage du projet.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Création d&amp;rsquo;un virtualenv pour héberger le projet&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;virtualenv pypimirror
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Installation de pypimirror&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;source&lt;/span&gt; pypimirror/bin/activate pip install pypimirror
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Depuis la version 1.0.15, il est demandé d&amp;rsquo;installer BeautifulSoup en version &amp;lt;=3.0.9999 hors ces versions ne sont plus disponibles sur Pypi &amp;hellip; J&amp;rsquo;ai donc installé la 1.0.14.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;$ROOTDIR&lt;/span&gt;/pypimirror
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wget https://pypi.python.org/packages/source/z/z3c.pypimirror/z3c.pypimirror-1.0.14.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar xvzf z3c.pypimirror-1.0.14.tar.gz &lt;span style=&#34;color:#ff5c57&#34;&gt;cd&lt;/span&gt; z3c.pypimirror-1.0.14 python setup.py install 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Création du fichier de configuration. il existe un fichier d&amp;rsquo;exemple fourni avec avec pypimirror&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp &lt;span style=&#34;color:#ff5c57&#34;&gt;$ROOTDIR&lt;/span&gt;/pypimirror/lib/python2.x/site-packages/pypimirror/pypimirror.cfg.sample &lt;span style=&#34;color:#ff5c57&#34;&gt;$ROOTDIR&lt;/span&gt;/pypimirror/pypimirror.cfg 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Voici les lignes que j&amp;rsquo;ai modifié pour mon usage perso :&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;--- pypimirror.cfg.sample       2014-08-12 11:54:04.000000000 +0200&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;+++ pypimirror.cfg              2014-08-12 11:54:29.380704186 +0200&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;@@ -1,10 +1,10 @@&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;[DEFAULT]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# the root folder of all mirrored packages.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# if necessary it will be created for you&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;-mirror_file_path&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/tmp/mirror&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;+mirror_file_path&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;$ROOTDIR/data&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# where&amp;#39;s your mirror on the net?&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;-base_url&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;http://your-host.com/    +base_url = http://pypi.ks.jmar.fr/    &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# lock file to avoid duplicate runs of the mirror script&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;lock_file_name&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/tmp/pypi-poll-access.lock&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;@@ -23,8 +23,7 @@&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# Pattern for package names; only packages having matching names will&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# be mirrored&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;package_matches&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;-    zope.*&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;-    plone.*&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;+    *&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# remove packages not on pypi (or externals) anymore&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;cleanup&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;True&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Premier lancement (nous sommes toujours dans le virtualenv)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;$ROOTDIR&lt;/span&gt;/pypimirror/bin/pypimirror &lt;span style=&#34;color:#ff5c57&#34;&gt;$ROOTDIR&lt;/span&gt;/pypimirror/pypimirror.cfg --initial-fetch
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mise en place de la tâche cron&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff9f43&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;8&lt;/span&gt; * * * pypimirror &lt;span style=&#34;color:#ff5c57&#34;&gt;$ROOTDIR&lt;/span&gt;/pypimirror/bin/pypimirror &lt;span style=&#34;color:#ff5c57&#34;&gt;$ROOTDIR&lt;/span&gt;/pypimirror/pypimirror.cfg --update-fetch
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Installation de PostgreSQL via YUM</title>
+      <link>/posts/pgsql-yum/</link>
+      <pubDate>Wed, 14 May 2014 14:13:00 +0200</pubDate>
+      
+      <guid>/posts/pgsql-yum/</guid>
+      <description>&lt;p&gt;Note: Toute cette procédure est applicable pour Centos6&lt;/p&gt;
+&lt;h2 id=&#34;1-configurer-le-dépôt-officiel&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#1-configurer-le-d%c3%a9p%c3%b4t-officiel&#34;&gt;
+        #
+    &lt;/a&gt;
+    1. Configurer le dépôt officiel
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rpm -ivh http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;2-installer-les-paquets-nécessaires&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#2-installer-les-paquets-n%c3%a9cessaires&#34;&gt;
+        #
+    &lt;/a&gt;
+    2. Installer les paquets nécessaires
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yum install postgresql93 postgresql93-server postgresql93-contrib --enablerepo&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;postgresql93
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;3-créer-le-fichier-de-paramètres&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#3-cr%c3%a9er-le-fichier-de-param%c3%a8tres&#34;&gt;
+        #
+    &lt;/a&gt;
+    3. Créer le fichier de paramètres
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Sous Centos, il est possible de créer un fichier dans /etc/sysconfig/pgsql/. Ce fichier permet de fixer les valeurs par defaut de l&amp;rsquo;instance&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/etc/sysconfig/pgsql/postgresql-9.3:&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#57c7ff&#34;&gt;PGDATA&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;/srv/postgresql/&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;    PGPORT=&amp;#34;5432&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;    PG_INITDB_OPTS=&amp;#34;--locale=en_US.UTF8&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;4-initialisation-de-linstance&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#4-initialisation-de-linstance&#34;&gt;
+        #
+    &lt;/a&gt;
+    4. Initialisation de l&amp;rsquo;instance
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/etc/init.d/postgresql-9.3 initdb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ne pas oublier d&amp;rsquo;activer PostgreSQL au démarrage de la machine :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chkconfig postgresql-9.3 on
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;5-création-dune-base-avec-lutilisateur-associé&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#5-cr%c3%a9ation-dune-base-avec-lutilisateur-associ%c3%a9&#34;&gt;
+        #
+    &lt;/a&gt;
+    5. Création d&amp;rsquo;une base avec l&amp;rsquo;utilisateur associé
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;su - postgres
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/usr/pgsql-9.3/bin/createdb mabase
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/usr/pgsql-9.3/bin/createuser -l monuser -W
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# Entrer le mot de passe utilisateur&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Il faut ensuite attribuer les droits à l&amp;rsquo;utilisateur sur la base. Ici nous allons le rendre propriétaire de la base.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;psql
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;ALTER&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;DATABASE&lt;/span&gt; mabase &lt;span style=&#34;color:#ff6ac1&#34;&gt;OWNER&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;TO&lt;/span&gt; monuser;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;6-droits-daccès-aux-différentes-bases&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#6-droits-dacc%c3%a8s-aux-diff%c3%a9rentes-bases&#34;&gt;
+        #
+    &lt;/a&gt;
+    6. Droits d&amp;rsquo;accès aux différentes bases
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Le fichier pg_hba.conf se trouve dans le répertoire $PGDATA. Il permet de déterminer qui peut se connecter à tel ou tel base et quelle méthode d&amp;rsquo;authentification il doit utiliser.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.postgresql.org/docs/9.3/static/auth-pg-hba-conf.html&#34;&gt;http://www.postgresql.org/docs/9.3/static/auth-pg-hba-conf.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Le fichier par défaut que j&amp;rsquo;utilise est le suivant :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# TYPE  DATABASE        USER            ADDRESS                 METHOD&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# &amp;#34;local&amp;#34; is for Unix domain socket connections only&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;local   all             all                                     peer&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# IPv4 local connections:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;host    mabase         monuser          127.0.0.1/32            md5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# IPv6 local connections:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;host    mabase        monuser           ::1/128                 md5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ici, les connexions via le socket local sont autorisées sans mot de passe à condition que l&amp;rsquo;utilisateur Unix soit le même que l&amp;rsquo;utilisateur de connexion à PostgreSQL.
+Les connexions à la base mabase avec l&amp;rsquo;utilisateur monuser sont autorisées à partir de la boucle locale en ipv4 et en ipv6 avec la saisie d&amp;rsquo;un mot de passe. Le client doit envoyer le mot de passe en MD5&lt;/p&gt;
+&lt;h2 id=&#34;dernière-étape&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#derni%c3%a8re-%c3%a9tape&#34;&gt;
+        #
+    &lt;/a&gt;
+    Dernière étape
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Il faut penser à recharger la configuration afin de prendre en compte la modification du fichier pg_hba.conf&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/etc/init.d/postgresql-9.3 reload
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Utilisation de Fabric sous Windows</title>
+      <link>/posts/fabric-windows/</link>
+      <pubDate>Sun, 24 Nov 2013 14:20:00 +0200</pubDate>
+      
+      <guid>/posts/fabric-windows/</guid>
+      <description>&lt;h2 id=&#34;prérequis&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#pr%c3%a9requis&#34;&gt;
+        #
+    &lt;/a&gt;
+    Prérequis
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Une version fonctionnelle de &lt;a href=&#34;https://www.jmar.fr/posts/python-windows&#34;&gt;python&lt;/a&gt;. L&amp;rsquo;installation de Fabric nécessite pycrypto qui est assez compliqué à compiler.&lt;/p&gt;
+&lt;p&gt;J&amp;rsquo;ai donc préféré chercher des binaires précompilés sur le net &lt;a href=&#34;http://archive.warshaft.com/pycrypto-2.3.1.win7x64-py2.7x64.7z&#34;&gt;pycrypto-2.3.1.win7x64-py2.7x64.7z&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Décompresser l&amp;rsquo;archive à la racine du &lt;strong&gt;virtualenv&lt;/strong&gt; utilisé pour Fabric.&lt;/p&gt;
+&lt;h2 id=&#34;installation-de-fabric&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#installation-de-fabric&#34;&gt;
+        #
+    &lt;/a&gt;
+    Installation de Fabric
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;pip install fabric&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Python sous Windows</title>
+      <link>/posts/python-windows/</link>
+      <pubDate>Sun, 24 Nov 2013 14:13:00 +0200</pubDate>
+      
+      <guid>/posts/python-windows/</guid>
+      <description>&lt;h2 id=&#34;installation&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#installation&#34;&gt;
+        #
+    &lt;/a&gt;
+    Installation
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Pour commencer télécharger l&amp;rsquo;installeur python2.7 sur le site officiel &lt;a href=&#34;http://python.org/ftp/python/2.7.4/python-2.7.4.msi&#34;&gt;http://python.org/ftp/python/2.7.4/python-2.7.4.msi&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;mise-en-place-de-setuptool-et-pip&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#mise-en-place-de-setuptool-et-pip&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Mise en place de setuptool et pip
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Afin de faciliter l&amp;rsquo;installation des paquets python, il faut installer setuptool et pip.
+Pour ce faire, la documentation officiel python propose deux scripts qui font tout le travail. ez_setup.py et get-pip.py
+Une fois les deux scripts téléchargés, il suffit de les lancer &lt;code&gt;.\ez_setup.py .\get-pip.py&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Ajouter les entrées suivantes dans le PATH Windows : C:\Python27;C:\Python27\Scripts\&lt;/p&gt;
+&lt;h3 id=&#34;installation-de-virtualenv&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#installation-de-virtualenv&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Installation de virtualenv
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;J&amp;rsquo;ai pour habitude d&amp;rsquo;utiliser les virtualenvs afin de ne pas polluer mon installation python par des modules en tous genres que je teste. &lt;code&gt;pip install virtualenv&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;création-dun-environnement-virtuel&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#cr%c3%a9ation-dun-environnement-virtuel&#34;&gt;
+        #
+    &lt;/a&gt;
+    Création d&amp;rsquo;un environnement virtuel
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;cd&lt;/span&gt; mon&lt;span style=&#34;color:#5af78e&#34;&gt;\r&lt;/span&gt;epertoire&lt;span style=&#34;color:#5af78e&#34;&gt;\d&lt;/span&gt;e&lt;span style=&#34;color:#5af78e&#34;&gt;\s&lt;/span&gt;cripting 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;virtualenv monenvironnemnet 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;monenvironnement&lt;span style=&#34;color:#5af78e&#34;&gt;\S&lt;/span&gt;cripts&lt;span style=&#34;color:#5af78e&#34;&gt;\a&lt;/span&gt;ctivate 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Authentification PostgreSQL pour Proftpd</title>
+      <link>/posts/proftpd-postgresql-auth/</link>
+      <pubDate>Mon, 18 Nov 2013 14:13:00 +0200</pubDate>
+      
+      <guid>/posts/proftpd-postgresql-auth/</guid>
+      <description>&lt;h2 id=&#34;préparation-de-la-base-postgresql&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#pr%c3%a9paration-de-la-base-postgresql&#34;&gt;
+        #
+    &lt;/a&gt;
+    Préparation de la base PostgreSQL
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;h3 id=&#34;création-de-lutilisateur&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#cr%c3%a9ation-de-lutilisateur&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Création de l&amp;rsquo;utilisateur
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;USER&lt;/span&gt; ftp LOGIN &lt;span style=&#34;color:#ff6ac1&#34;&gt;ENCRYPTED&lt;/span&gt; PASSWORD &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;sup3rs3cret&amp;#39;&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;DATABASE&lt;/span&gt; ftpuser &lt;span style=&#34;color:#ff6ac1&#34;&gt;OWNER&lt;/span&gt; ftp; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;TABLE&lt;/span&gt; users ( pkid &lt;span style=&#34;color:#ff5c57&#34;&gt;serial&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;PRIMARY&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;KEY&lt;/span&gt;, userid &lt;span style=&#34;color:#ff5c57&#34;&gt;text&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;NOT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;NULL&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;UNIQUE&lt;/span&gt;, passwd &lt;span style=&#34;color:#ff5c57&#34;&gt;text&lt;/span&gt;, uid &lt;span style=&#34;color:#ff5c57&#34;&gt;int&lt;/span&gt;, gid &lt;span style=&#34;color:#ff5c57&#34;&gt;int&lt;/span&gt;, homedir &lt;span style=&#34;color:#ff5c57&#34;&gt;text&lt;/span&gt;, shell &lt;span style=&#34;color:#ff5c57&#34;&gt;text&lt;/span&gt; ); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;TABLE&lt;/span&gt; groups ( groupname &lt;span style=&#34;color:#ff5c57&#34;&gt;VARCHAR&lt;/span&gt;(&lt;span style=&#34;color:#ff9f43&#34;&gt;30&lt;/span&gt;) &lt;span style=&#34;color:#ff6ac1&#34;&gt;NOT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;NULL&lt;/span&gt;, gid &lt;span style=&#34;color:#ff5c57&#34;&gt;INTEGER&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;NOT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;NULL&lt;/span&gt;, members &lt;span style=&#34;color:#ff5c57&#34;&gt;VARCHAR&lt;/span&gt;(&lt;span style=&#34;color:#ff9f43&#34;&gt;255&lt;/span&gt;) ); 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ajout de l&amp;rsquo;extention pgcrypto pour les mots de passe Nécessiste d&amp;rsquo;avoir le paquet contrib d&amp;rsquo;installé.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; EXTENTION pgcrypto;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;préparation-de-la-configuration-proftpd&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#pr%c3%a9paration-de-la-configuration-proftpd&#34;&gt;
+        #
+    &lt;/a&gt;
+    Préparation de la configuration Proftpd
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;proftpd.conf&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;LoadModule mod_sql.c &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;include /etc/proftpd/pgsql.conf &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# Module important pour indiquer quel type de backend utiliser (MySQL ou PostgreSQL) &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;LoadModule mod_sql_postgres.c &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;AuthOrder mod_sql.c &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;SQLAuthTypes Crypt Plaintext &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;SQLAuthenticate users &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;SQLConnectInfo ftpusers@127.0.0.1:5432 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;ftp supers3cr3t &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;SQLDefaultUID 1000 # CHANGE FOR YOUR FTP USERS UID FOUND IN /etc/passwd &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;SQLDefaultGID 1000 # CHANGE FOR YOUR FTP USERS GID, FOUND IN /etc/groups &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;SQLDefaultHomedir /home/ftp RequireValidShell off SQLUserInfo users userid passwd uid gid homedir shell &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;SQLNegativeCache off &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;SQLLogFile /var/log/proftpd-sql &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;SQLLog STOR newfile # Permet de logger en base si la table existe. &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;SQLNamedQuery newfile FREEFORM &amp;#34;INSERT INTO file_log(userid,abs_path,file,dns,time_transaction) VALUES (&amp;#39;%U&amp;#39;,&amp;#39;%f&amp;#39;,&amp;#39;%J&amp;#39;,&amp;#39;%V&amp;#39;,&amp;#39;%T&amp;#39;)&amp;#34; # %U&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;gt; userid # %D =&amp;gt; --Nothing, # %f =&amp;gt; abs_path # %J =&amp;gt; file # %h =&amp;gt; dns_remote, %V =&amp;gt; dns_local # %a =&amp;gt; remote_ip, %L =&amp;gt; local_ip # %t =&amp;gt; localtime # %T =&amp;gt; transfer_time&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;création-de-lutilisateur-1&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#cr%c3%a9ation-de-lutilisateur-1&#34;&gt;
+        #
+    &lt;/a&gt;
+    Création de l&amp;rsquo;utilisateur
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;INSERT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; users ( userid, passwd, homedir, shell ) &lt;span style=&#34;color:#ff6ac1&#34;&gt;VALUES&lt;/span&gt; ( &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;user1&amp;#39;&lt;/span&gt;, crypt(&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;pwd1&amp;#39;&lt;/span&gt;, gen_salt(&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;md5&amp;#39;&lt;/span&gt;)), &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;/home/ftp/user&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;/bin/false&amp;#39;&lt;/span&gt; );
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>MySQL Procédures Stockées</title>
+      <link>/posts/mysql-stored-proc/</link>
+      <pubDate>Fri, 02 Aug 2013 17:13:18 +0200</pubDate>
+      
+      <guid>/posts/mysql-stored-proc/</guid>
+      <description>&lt;p&gt;J&amp;rsquo;ai eu besoin, dans le cadre d&amp;rsquo;un projet, de supprimer des lignes sur certaines tables contenant un ID spécifique. Cette manipulation devant se faire régulièrement, une procédure stockée a été créée.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;DELIMITER&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;$$&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;DROP&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;PROCEDURE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;IF&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;EXISTS&lt;/span&gt; DeleteOrphan$$ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;PROCEDURE&lt;/span&gt; DeleteOrphan(&lt;span style=&#34;color:#ff6ac1&#34;&gt;IN&lt;/span&gt; hwid &lt;span style=&#34;color:#ff5c57&#34;&gt;INT&lt;/span&gt;) 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;BEGIN&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;DECLARE&lt;/span&gt; done &lt;span style=&#34;color:#ff5c57&#34;&gt;INT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;DEFAULT&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;0&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;DECLARE&lt;/span&gt; var_table &lt;span style=&#34;color:#ff5c57&#34;&gt;VARCHAR&lt;/span&gt;(&lt;span style=&#34;color:#ff9f43&#34;&gt;64&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;DECLARE&lt;/span&gt; curseur1 &lt;span style=&#34;color:#ff6ac1&#34;&gt;CURSOR&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;FOR&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                     &lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;DISTINCT&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;table_name&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                     &lt;span style=&#34;color:#ff6ac1&#34;&gt;FROM&lt;/span&gt; information_schema.tables 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                     &lt;span style=&#34;color:#ff6ac1&#34;&gt;WHERE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;table_name&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;LIKE&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;aaa_%&amp;#39;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                     &lt;span style=&#34;color:#ff6ac1&#34;&gt;AND&lt;/span&gt; table_schema&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;MySchema&amp;#39;&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;DECLARE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;CONTINUE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;HANDLER&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;FOR&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;SQLSTATE&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;02000&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;SET&lt;/span&gt; done &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#78787e&#34;&gt;-- Ouverture du curseur 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;OPEN&lt;/span&gt; curseur1; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    REPEAT 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#78787e&#34;&gt;-- On récupère chaque élément dans var_table 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;FETCH&lt;/span&gt; curseur1 &lt;span style=&#34;color:#ff6ac1&#34;&gt;INTO&lt;/span&gt; var_table; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#78787e&#34;&gt;-- Si done = 0 (donc tant qu&amp;#39;on a pas SQLSTAT 02000 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;          &lt;span style=&#34;color:#ff6ac1&#34;&gt;IF&lt;/span&gt; done &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;THEN&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#ff6ac1&#34;&gt;SET&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;@&lt;/span&gt;query &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; CONCAT(&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;DELETE FROM &amp;#39;&lt;/span&gt;, var_table,&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39; WHERE hardware_id = &amp;#39;&lt;/span&gt;, hwid); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#ff6ac1&#34;&gt;PREPARE&lt;/span&gt; stmt &lt;span style=&#34;color:#ff6ac1&#34;&gt;FROM&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;@&lt;/span&gt;query; &lt;span style=&#34;color:#ff6ac1&#34;&gt;EXECUTE&lt;/span&gt; stmt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#ff6ac1&#34;&gt;END&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;IF&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#ff6ac1&#34;&gt;UNTIL&lt;/span&gt; done 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#78787e&#34;&gt;-- Done = 1 si on a SQLSTAT 02000 (No data - zero rows fetched, selected, or processed ) 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#ff6ac1&#34;&gt;END&lt;/span&gt; REPEAT; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;CLOSE&lt;/span&gt; curseur1; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;END&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;$$&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;DELIMITER&lt;/span&gt; ;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>PostgreSQL - Suppression de tables en fonction du Owner</title>
+      <link>/posts/pgsql-del-table-with-owner/</link>
+      <pubDate>Mon, 16 Jul 2012 17:13:18 +0200</pubDate>
+      
+      <guid>/posts/pgsql-del-table-with-owner/</guid>
+      <description>&lt;p&gt;Suite à une fausse manipulation, j&amp;rsquo;ai importé l&amp;rsquo;ensemble de mes bases de données dans la base template1. Conséquence, toutes les nouvelles bases de données créées le seraient avec le schéma de toutes les autres bases. C&amp;rsquo;est moche ! Le nombre de table étant importantes, j&amp;rsquo;ai donc créé une procédure stockée afin de supprimer rapidement les tables en fonction d&amp;rsquo;un owner passé en paramètre.&lt;/p&gt;
+&lt;p&gt;Connexion à la base Postgres à nettoyer&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bash&amp;gt; psql -U postgres template1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Création de la procédure&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;LANGUAGE&lt;/span&gt; plpgsql;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;OR&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;REPLACE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;FUNCTION&lt;/span&gt; clean_database(&lt;span style=&#34;color:#ff6ac1&#34;&gt;owner&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;IN&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;VARCHAR&lt;/span&gt;) &lt;span style=&#34;color:#ff6ac1&#34;&gt;RETURNS&lt;/span&gt; void &lt;span style=&#34;color:#ff6ac1&#34;&gt;AS&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;$$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff6ac1&#34;&gt;DECLARE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        statements &lt;span style=&#34;color:#ff6ac1&#34;&gt;CURSOR&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;FOR&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; tablename &lt;span style=&#34;color:#ff6ac1&#34;&gt;FROM&lt;/span&gt; pg_tables
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;WHERE&lt;/span&gt; tableowner &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;owner&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff6ac1&#34;&gt;BEGIN&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;FOR&lt;/span&gt; stmt &lt;span style=&#34;color:#ff6ac1&#34;&gt;IN&lt;/span&gt; statements LOOP
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;EXECUTE&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;DROP TABLE &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;||&lt;/span&gt; quote_ident(stmt.tablename) &lt;span style=&#34;color:#ff6ac1&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;END&lt;/span&gt; LOOP;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff6ac1&#34;&gt;END&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;$$&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff6ac1&#34;&gt;LANGUAGE&lt;/span&gt; plpgsql;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Exécution de la procédure. Les tables ont les owner suivants : zabbix,photos,drupal.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; clean_database(&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;zabbix&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; clean_database(&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;drupal&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;SELECT&lt;/span&gt; clean_database(&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;photos&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Serveur Bind en master/slave</title>
+      <link>/posts/bind-master-slave/</link>
+      <pubDate>Sat, 02 Jun 2012 14:13:00 +0200</pubDate>
+      
+      <guid>/posts/bind-master-slave/</guid>
+      <description>&lt;h2 id=&#34;installer-bind&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#installer-bind&#34;&gt;
+        #
+    &lt;/a&gt;
+    Installer bind
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Installation de bind via l&amp;rsquo;outil de gestion de paquet du système: apt/yum/emerge&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apt-get/yum install named
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;emerge -av &lt;span style=&#34;color:#ff5c57&#34;&gt;bind&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;configuration-du-master&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#configuration-du-master&#34;&gt;
+        #
+    &lt;/a&gt;
+    Configuration du Master
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Génération de la clé de transfert entre NS1 et NS2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/usr/sbin/dnssec-keygen -a HMAC-MD5 -b &lt;span style=&#34;color:#ff9f43&#34;&gt;512&lt;/span&gt; -r /dev/urandom -n HOST ns2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Fichier /etc/named.conf&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bind&#34; data-lang=&#34;bind&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;options&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;directory&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;/var/cache/bind&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;If&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;there&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;firewall&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;between&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;you&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;nameservers&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;you&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;want&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;talk&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to,&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;you&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;may&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;need&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;fix&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;firewall&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;allow&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;multiple&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ports&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to&lt;/span&gt; talk.  &lt;span style=&#34;color:#ff5c57&#34;&gt;See&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;http://&lt;/span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;www.kb.cert.org&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;/vuls/id/&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;800113&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;If&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;your&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ISP&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;provided&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;one&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;more&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;IP&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;addresses&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;stable&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;nameservers,&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;you&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;probably&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;want&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;them&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;as&lt;/span&gt; forwarders.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;Uncomment&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;following&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;block,&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;insert&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;addresses&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;replacing&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;all-&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;\&amp;#39;s&lt;/span&gt; placeholder.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;forwarders&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt;     &lt;span style=&#34;color:#ff9f43&#34;&gt;0.0.0.0&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;auth-nxdomain&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;no&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;    # conform to RFC1035&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;listen-on-v6&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;any&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;; };&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;dnssec-enable&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;yes&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;Le&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;transfert&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;se&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;fait&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ici&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;par&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;une&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;clé&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;présente&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;sur&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;les&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;deux&lt;/span&gt; serveurs.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;allow-transfer&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;key&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ns1-ns2&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;; };&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;Si&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;la&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;zone&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;n&amp;#39;existe&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;pas&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;sur&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;le&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;DNS,&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;alors&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;on&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;forward&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;vers&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;cette&lt;/span&gt; adresse.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;forwarders&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;10.0.0.1&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;; }; &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;forward&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;first&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;Définition&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;de&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;la&lt;/span&gt; clé.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;key&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;ns1-ns2&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;algorithm&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;hmac-md5&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;secret&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;---Coller&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;la&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;clé&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;générée&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;plus&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;haut---&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;/etc/bind/&lt;/span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;zones.conf&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;/etc/bind/&lt;/span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;rndc.key&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Fichier /etc/bind/zones.conf&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bind&#34; data-lang=&#34;bind&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;zone&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;jmar.fr&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;master&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;file&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;/etc/bind/zones/&lt;/span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;jmar.fr&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;; &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Fichier /etc/bind/zones/jmar.fr&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bind&#34; data-lang=&#34;bind&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#ff5c57&#34;&gt;$TTL&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;D&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;@&lt;/span&gt;  &lt;span style=&#34;color:#ff6ac1&#34;&gt;IN&lt;/span&gt;  &lt;span style=&#34;color:#ff6ac1&#34;&gt;SOA&lt;/span&gt; ns1.jmar.fr. hostmaster.linux.lan. (
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#5af78e&#34;&gt;199802154&lt;/span&gt;       &lt;span style=&#34;color:#78787e&#34;&gt;; serial, todays date + todays serial &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#5af78e&#34;&gt;8&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;H&lt;/span&gt;              &lt;span style=&#34;color:#78787e&#34;&gt;; refresh, seconds&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#5af78e&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;H&lt;/span&gt;              &lt;span style=&#34;color:#78787e&#34;&gt;; retry, seconds&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#5af78e&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;W&lt;/span&gt;              &lt;span style=&#34;color:#78787e&#34;&gt;; expire, seconds&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#5af78e&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;D&lt;/span&gt; )            &lt;span style=&#34;color:#78787e&#34;&gt;; minimum, seconds&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;TXT&lt;/span&gt;     &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;Linux.LAN,&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;serving&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;YOUR&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;domain&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;:&lt;/span&gt;)&lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;NS&lt;/span&gt;      &lt;span style=&#34;color:#ff5c57&#34;&gt;ns1&lt;/span&gt;             &lt;span style=&#34;color:#78787e&#34;&gt;; Inet Address of name server&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;NS&lt;/span&gt;      &lt;span style=&#34;color:#ff5c57&#34;&gt;ns2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;MX&lt;/span&gt;      &lt;span style=&#34;color:#5af78e&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;mail&lt;/span&gt;        &lt;span style=&#34;color:#78787e&#34;&gt;; Primary Mail Exchanger&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff6ac1&#34;&gt;A&lt;/span&gt;    &lt;span style=&#34;color:#ff9f43&#34;&gt;88.191.152.102&lt;/span&gt; &lt;span style=&#34;color:#78787e&#34;&gt;; Primary IP&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;localhost&lt;/span&gt;    &lt;span style=&#34;color:#ff6ac1&#34;&gt;A&lt;/span&gt;    &lt;span style=&#34;color:#ff9f43&#34;&gt;127.0.0.1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;ns1&lt;/span&gt;          &lt;span style=&#34;color:#ff6ac1&#34;&gt;A&lt;/span&gt;    &lt;span style=&#34;color:#ff9f43&#34;&gt;10.0.0.145&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;ns2&lt;/span&gt;          &lt;span style=&#34;color:#ff6ac1&#34;&gt;A&lt;/span&gt;    &lt;span style=&#34;color:#ff9f43&#34;&gt;10.0.0.109&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;ns&lt;/span&gt;           &lt;span style=&#34;color:#ff6ac1&#34;&gt;A&lt;/span&gt;    &lt;span style=&#34;color:#ff9f43&#34;&gt;10.0.0.145&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;ns&lt;/span&gt;           &lt;span style=&#34;color:#ff6ac1&#34;&gt;A&lt;/span&gt;    &lt;span style=&#34;color:#ff9f43&#34;&gt;10.0.0.109&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;www&lt;/span&gt;          &lt;span style=&#34;color:#ff6ac1&#34;&gt;A&lt;/span&gt;    &lt;span style=&#34;color:#ff9f43&#34;&gt;10.0.0.1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;configuration-du-slave&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#configuration-du-slave&#34;&gt;
+        #
+    &lt;/a&gt;
+    Configuration du Slave
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Comme pour le master, il faut installer bind via l&amp;rsquo;outil de package disponible sur le système (apt / yum / emerge &amp;hellip;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bind&#34; data-lang=&#34;bind&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;//Options&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;générales&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;options&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;directory&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;/var/cache/bind&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;  &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;If&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;there&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;firewall&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;between&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;you&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;nameservers&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;you&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;want&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;talk&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to,&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;you&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;may&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;need&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;fix&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;firewall&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;allow&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;multiple&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ports&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to&lt;/span&gt; talk.  &lt;span style=&#34;color:#ff5c57&#34;&gt;See&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;http://&lt;/span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;www.kb.cert.org&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;/vuls/id/&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;800113&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;If&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;your&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ISP&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;provided&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;one&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;more&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;IP&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;addresses&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;stable&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;nameservers,&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;you&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;probably&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;want&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;them&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;as&lt;/span&gt; forwarders.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;Uncomment&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;following&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;block,&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;insert&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;addresses&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;replacing&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;all-&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;\&amp;#39;s&lt;/span&gt; placeholder.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;auth-nxdomain&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;no&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;    # conform to RFC1035&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;listen-on-v6&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;any&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;; };&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;dnssec-enable&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;yes&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;key&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;ns1-ns2&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;algorithm&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;hmac-md5&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff5c57&#34;&gt;secret&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;---Coller&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ici&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;la&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;clé&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;générée&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;sur&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;NS1---&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;On&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;définie&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;la&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;clé&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;à&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;utiliser&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;pour&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;communiquer&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;avec&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;le&lt;/span&gt; master.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;10.0.0.145&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;keys&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;ns1-ns2&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;; };&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;On&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;définie&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;qui&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;peut&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;utiliser&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;RNDC&lt;/span&gt; (&lt;span style=&#34;color:#ff5c57&#34;&gt;ici&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;localhost&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;et&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;le&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;master&lt;/span&gt;) 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;avec&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;la&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;clé&lt;/span&gt; rndc.key. &lt;span style=&#34;color:#ff5c57&#34;&gt;La&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;clé&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;doit&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;être&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;identique&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;à&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;celle&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;de&lt;/span&gt; NS1.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;controls&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;inet&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;allow&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;127.0.0.1&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;; 10.0.0.145; } keys { &amp;#34;rndc-key&amp;#34;; };&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;/etc/bind/&lt;/span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;zones.conf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;/etc/bind/&lt;/span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;rndc.conf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;/etc/bind/zones.conf&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bind&#34; data-lang=&#34;bind&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;zone&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;jmar.fr&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//Zone&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;esclave&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;slave&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//emplacement&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;du&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;fichier&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;de&lt;/span&gt; zone. &lt;span style=&#34;color:#ff5c57&#34;&gt;Ne&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;pas&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;toucher&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;aux&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;fichiers&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;file&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;/etc/bind/zones/&lt;/span&gt;&lt;span style=&#34;color:#f3f99d&#34;&gt;slave_jmar.fr&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;; &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;Addresse&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;du&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;master&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;masters&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;10.0.0.145&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;; }; &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;//&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;Autorise&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;le&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;serveur&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;master&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;à&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;mettre&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;à&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;jour&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;la&lt;/span&gt; zone.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;allow-notify&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;10.0.0.145&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;; }; &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;dernière-étape&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#derni%c3%a8re-%c3%a9tape&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Dernière étape
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Configurer &lt;strong&gt;ntpd&lt;/strong&gt; pour que les deux serveurs soient à la même heure&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Migration BDD Zabbix de MySQL vers PostgreSQL</title>
+      <link>/posts/migration-db-zbx-mysql-pgsql/</link>
+      <pubDate>Sun, 15 Apr 2012 14:13:00 +0200</pubDate>
+      
+      <guid>/posts/migration-db-zbx-mysql-pgsql/</guid>
+      <description>&lt;h2 id=&#34;création-de-la-base-sous-postgresql&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#cr%c3%a9ation-de-la-base-sous-postgresql&#34;&gt;
+        #
+    &lt;/a&gt;
+    Création de la base sous PostgreSQL
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;ROLE&lt;/span&gt; zabbix PASSWORD &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;pass&amp;#39;&lt;/span&gt; LOGIN; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;CREATE&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;DATABASE&lt;/span&gt; zabbix &lt;span style=&#34;color:#ff6ac1&#34;&gt;OWNER&lt;/span&gt; zabbix 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;import-du-schéma-zabbix&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#import-du-sch%c3%a9ma-zabbix&#34;&gt;
+        #
+    &lt;/a&gt;
+    Import du schéma Zabbix
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;psql -U zabbix zabbix &amp;lt; /usr/share/zabbix/database/create/postgresql.sql 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;export-des-datas-mysql-dans-un-format-compatible-avec-postgresql&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#export-des-datas-mysql-dans-un-format-compatible-avec-postgresql&#34;&gt;
+        #
+    &lt;/a&gt;
+    Export des datas MySQL dans un format compatible avec PostgreSQL
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mysqldump --compact -c -e -n -t --compatitable&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;postgresql zabbix &amp;gt; zabbix_mysql.sql 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;echapement-des-apostrophes-en-trop&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#echapement-des-apostrophes-en-trop&#34;&gt;
+        #
+    &lt;/a&gt;
+    Echapement des apostrophes en trop
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sed &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;s/\\\&amp;#39;/\&amp;#39;\&amp;#39;/g&amp;#34;&lt;/span&gt; zabbix_mysql.sql &amp;gt; zabbix_pg.sql 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;import-des-données-dans-postgresql&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#import-des-donn%c3%a9es-dans-postgresql&#34;&gt;
+        #
+    &lt;/a&gt;
+    Import des données dans PostgreSQL
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;psql -U zabbix zabbix &amp;lt; zabbix_pg.sql 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Installation de Nginx sur Gentoo</title>
+      <link>/posts/nginx-gentoo/</link>
+      <pubDate>Mon, 27 Feb 2012 17:13:18 +0200</pubDate>
+      
+      <guid>/posts/nginx-gentoo/</guid>
+      <description>&lt;h2 id=&#34;installation-de-nginx&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#installation-de-nginx&#34;&gt;
+        #
+    &lt;/a&gt;
+    Installation de Nginx
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Nginx est un concurent d&amp;rsquo;apache qui est beaucoup plus performant que ce dernier. &lt;a href=&#34;http://www.first-world.info/apache-vs-lighttpd-vs-nginx.html&#34;&gt;http://www.first-world.info/apache-vs-lighttpd-vs-nginx.html&lt;/a&gt; Voici comment installer Nginx sous Gentoo &amp;hellip;&lt;/p&gt;
+&lt;h3 id=&#34;compilation-de-nginx&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#compilation-de-nginx&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Compilation de Nginx
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# Installation de vim-syntax avec nginx :-)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;www-server/nginx vim-syntax&amp;#34;&lt;/span&gt; &amp;gt; /etc/portage/package.use/nginx
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;emerge -av nginx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;compilation-de-php&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#compilation-de-php&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Compilation de PHP
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# N&amp;#39;ayant pas de module dav pour nginx, apache s&amp;#39;en occupera&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;dev-lang/php fpm gd mysql zip apache2&amp;#34;&lt;/span&gt; &amp;gt; /etc/portage/package.use/php
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# Options de compilation pour gd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;media-libs/gd png&amp;#34;&lt;/span&gt; &amp;gt; /etc/portage/package.use/gd
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;#Options de compilation pour png&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;# Ici la version de php a été forcée car sinon il y a des problèmes de dépendances.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;=dev-lang/php-5.3.8 truetype bcmath sockets&amp;#34;&lt;/span&gt; &amp;gt; /etc/portage/package.use/png 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;emerge -av php
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;configuration&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#configuration&#34;&gt;
+        #
+    &lt;/a&gt;
+    Configuration
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;h3 id=&#34;création-dun-pool-php&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#cr%c3%a9ation-dun-pool-php&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Création d&amp;rsquo;un pool PHP
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Editer le fichier /etc/php/fpm-php/php-fpm.conf&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;[global]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;error_log&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/var/log/php-fpm.log&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;[monpool]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;127.0.0.1:9000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;user&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;www-data&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;group&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;www-data&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;pm&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;dynamic&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;pm.max_children&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;50&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;pm.min_spare_servers&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57c7ff&#34;&gt;pm.max_spare_servers&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;35&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;détail-des-paramètres-utilisés&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#d%c3%a9tail-des-param%c3%a8tres-utilis%c3%a9s&#34;&gt;
+        ###
+    &lt;/a&gt;
+    Détail des paramètres utilisés
+&lt;/div&gt;
+&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;error_log&lt;/strong&gt; : Spécifie l&amp;rsquo;emplacement des logs&lt;br&gt;
+&lt;strong&gt;listen&lt;/strong&gt; : Spécifie l&amp;rsquo;ip et le port d&amp;rsquo;écoute de php-fpm&lt;br&gt;
+&lt;strong&gt;user/group&lt;/strong&gt; : Utilisateur et group d&amp;rsquo;exécution pour php-fpm&lt;br&gt;
+&lt;strong&gt;pm&lt;/strong&gt; = dynamic : PHP ne démarre pas immédiatement tous ses workers. Ils sont démarrés de façon dynamique.&lt;br&gt;
+&lt;strong&gt;pm.max_children&lt;/strong&gt; : Ici nous aurons au maximum 50 processus fils créés.&lt;br&gt;
+&lt;strong&gt;pm.min_spare_servers&lt;/strong&gt; : Ici 5 workers seront démarrés au lancement de PHP. Ceci est le nombre minimum de processus IDLE que nous trouverons sur le système.&lt;br&gt;
+&lt;strong&gt;pm.max_spare_servers&lt;/strong&gt; : Ici il y aura au maximum 35 workers PHP en IDLE. Ceci est réglé automatiquement en fonctione de la charge.&lt;/p&gt;
+&lt;h3 id=&#34;configuration-du-vhost-nginx&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#configuration-du-vhost-nginx&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Configuration du vhost Nginx
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-nginx&#34; data-lang=&#34;nginx&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;upstream&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;php&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#78787e&#34;&gt;# Pas forcément utile ici, 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#78787e&#34;&gt;# permets de faire du load-balancing entre différents serveurs php.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;      &lt;span style=&#34;color:#78787e&#34;&gt;#server unix:/tmp/php-cgi.socket;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;      &lt;span style=&#34;color:#ff6ac1&#34;&gt;server&lt;/span&gt; 127.0.0.1:&lt;span style=&#34;color:#ff9f43&#34;&gt;9000&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#78787e&#34;&gt;#Equivalent à 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;server&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#78787e&#34;&gt;#On écoute sur toutes les interfaces
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;listen&lt;/span&gt;       &lt;span style=&#34;color:#5af78e&#34;&gt;*&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;server_name&lt;/span&gt;  &lt;span style=&#34;color:#5af78e&#34;&gt;monsite.com&lt;/span&gt;  &lt;span style=&#34;color:#5af78e&#34;&gt;www.monsite.com&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;access_log&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/var/logs/nginx/monsite.com/access.log&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;main&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;error_log&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/var/logs/nginx/monsite.com/error.log&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;info&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;root&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/var/www/monsite.com&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#78787e&#34;&gt;# Fichier d&amp;#39;index par defaut. Surcharge la valeur indiquée dans nginx.conf
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;index&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;index.php&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; = &lt;span style=&#34;color:#5af78e&#34;&gt;/favicon.ico&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;             &lt;span style=&#34;color:#78787e&#34;&gt;#On désactive les logs 404 et les access log pour les favicon.ico
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;             &lt;span style=&#34;color:#ff6ac1&#34;&gt;log_not_found&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;off&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;             &lt;span style=&#34;color:#ff6ac1&#34;&gt;access_log&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;off&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; = &lt;span style=&#34;color:#5af78e&#34;&gt;/robots.txt&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#78787e&#34;&gt;#On autorise tout le monde à avoir accès au fichier robots.txt et on 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#78787e&#34;&gt;# désactive les logs pour ce fichier.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;allow&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;all&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;log_not_found&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;off&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;access_log&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;off&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#78787e&#34;&gt;#Si l&amp;#39;uri n&amp;#39;existe pas, 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;       &lt;span style=&#34;color:#78787e&#34;&gt;# on renvoie sur index.php
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;try_files&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;$uri&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;$uri/&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/index.php&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; ~ &lt;span style=&#34;color:#5af78e&#34;&gt;\.php&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#78787e&#34;&gt;#Pour chaque fichier *.php, 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;      &lt;span style=&#34;color:#78787e&#34;&gt;# on charge la configuration php et on fait du proxypass vers le serveur php-fpm.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;conf/fastcgi.conf&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;fastcgi_intercept_errors&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;on&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;fastcgi_pass&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;php&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; ~&lt;span style=&#34;color:#5af78e&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;\.(js|css|png|jpg|jpeg|gif|ico)&lt;/span&gt;$ {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#78787e&#34;&gt;# Tous les fichiers de type js,css,png,jpd,jpeg ... 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;       &lt;span style=&#34;color:#78787e&#34;&gt;# sont mis en cache pendant 24h. 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;       &lt;span style=&#34;color:#78787e&#34;&gt;# De plus les logs sont désactivés sur ces fichiers.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;expires&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;24h&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;log_not_found&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;off&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; ~ &lt;span style=&#34;color:#5af78e&#34;&gt;\.htpasswd&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#78787e&#34;&gt;# On interdit l&amp;#39;accès au fichier .htpasswd
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;       &lt;span style=&#34;color:#ff6ac1&#34;&gt;deny&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;all&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;server&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#78787e&#34;&gt;#On écoute sur le port 443. Ce vhost sera le vhost SSL par défaut.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;443&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;default_server&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;ssl&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;server_name&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;monsite.com&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;www.monsite.com&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;access_log&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/var/logs/nginx/monsite.com/access-ssl.log&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;main&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;error_log&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/var/logs/nginx/monsite.com/error-ssl.log&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;info&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;root&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/var/www/monsite.com&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;index&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;index.php&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; = &lt;span style=&#34;color:#5af78e&#34;&gt;/favicon.ico&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;log_not_found&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;off&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;access_log&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;off&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; = &lt;span style=&#34;color:#5af78e&#34;&gt;/robots.txt&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;allow&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;all&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;log_not_found&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;off&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;access_log&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;off&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#78787e&#34;&gt;#Si l&amp;#39;uri n&amp;#39;existe pas, on renvoie sur index.php
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;&lt;/span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;try_files&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;$uri&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;$uri/&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;/index.php&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; ~ &lt;span style=&#34;color:#5af78e&#34;&gt;\.php&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;conf/fastcgi.conf&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;fastcgi_intercept_errors&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;on&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;fastcgi_pass&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;php&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; ~&lt;span style=&#34;color:#5af78e&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;\.(js|css|png|jpg|jpeg|gif|ico)&lt;/span&gt;$ {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;expires&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;24h&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;log_not_found&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;off&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#ff6ac1&#34;&gt;location&lt;/span&gt; ~ &lt;span style=&#34;color:#5af78e&#34;&gt;\.htpasswd&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#ff6ac1&#34;&gt;deny&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;all&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notez que dans la configuration du vhost SSL, il n&amp;rsquo;y pas d&amp;rsquo;information sur les certificats. En effet, ils ont été déclarés dans la configuration globale car ce sont des certificats wildcard. Ils sont donc valables pour tous les sous-domaine du site. Il est donc inutile de les redéfinir dans chaque vhost SSL. Par contre si il y a plusieurs domaines hébergés sur le même nginx, cette méthode n&amp;rsquo;est pas applicable.&lt;/p&gt;
+&lt;h2 id=&#34;démarrage-des-services-web&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#d%c3%a9marrage-des-services-web&#34;&gt;
+        #
+    &lt;/a&gt;
+    Démarrage des services Web
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Lancement / Arrêt / Recharger la configuration Un init script a été installé automatiquement. Il permet de lancer/arrêter ou de recharger la configuration de nginx et php&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/etc/init.d/nginx &lt;span style=&#34;color:#ff6ac1&#34;&gt;(&lt;/span&gt;start|stop|restart|reload&lt;span style=&#34;color:#ff6ac1&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/etc/init.d/php*fpm &lt;span style=&#34;color:#ff6ac1&#34;&gt;(&lt;/span&gt;start|stop|restart|reload&lt;span style=&#34;color:#ff6ac1&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;lancement-automatique-des-services-web-au-redémarrage&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#lancement-automatique-des-services-web-au-red%c3%a9marrage&#34;&gt;
+        #
+    &lt;/a&gt;
+    Lancement automatique des services web au redémarrage
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rc-update add nginx default
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rc-update add php-fpm default
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Installation de PostgreSQL à partir des sources</title>
+      <link>/posts/postgresql-install-from-sources/</link>
+      <pubDate>Mon, 27 Feb 2012 16:13:18 +0200</pubDate>
+      
+      <guid>/posts/postgresql-install-from-sources/</guid>
+      <description>&lt;h2 id=&#34;récupération-des-sources&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#r%c3%a9cup%c3%a9ration-des-sources&#34;&gt;
+        #
+    &lt;/a&gt;
+    Récupération des sources
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wget http://ftp.postgresql.org/pub/source/v9.1.2/postgresql-9.1.2.tar.gz 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar xvzf postgresql-9.1.2.tar.gz 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;compilation-des-sources&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#compilation-des-sources&#34;&gt;
+        #
+    &lt;/a&gt;
+    Compilation des sources
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;cd&lt;/span&gt; postgresql-9.1.2 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./configure --prefix&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;/opt/postgresql-9.1.2 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make -j2 &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;initialisation-de-la-base&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#initialisation-de-la-base&#34;&gt;
+        #
+    &lt;/a&gt;
+    Initialisation de la base
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;useradd -d /home/databases/postgresql postgres 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir -p /home/databases/postgresql 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chown postgres: -R /home/databases/postgresql 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;su - postgres 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/opt/postgresql-9.1.2/bin/initdb -D /home/databases/postgresql-9.1.2 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/opt/postgersql-9.1.2/bin/pg_ctl -D /home/databases/postgresql-9.1.2 start 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Voila un postgresql installé et démarré. Un prochain article détaillera une configuration un peu plus optimisée.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Installation de Gentoo sur Dedibox SC</title>
+      <link>/posts/gentoo-dedibox/</link>
+      <pubDate>Sun, 26 Feb 2012 16:13:18 +0200</pubDate>
+      
+      <guid>/posts/gentoo-dedibox/</guid>
+      <description>&lt;p&gt;Me voila heureux possesseur d&amp;rsquo;une Dédibox SC. Mais la liste des OS disponibles dans la console d&amp;rsquo;installation ne me conviens pas du tout. J&amp;rsquo;ai donc décidé d&amp;rsquo;installer mon OS préféré, une gentoo.&lt;/p&gt;
+&lt;h2 id=&#34;etape-1-booter-en-mode-rescue&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#etape-1-booter-en-mode-rescue&#34;&gt;
+        #
+    &lt;/a&gt;
+    Etape 1: Booter en mode rescue
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Cette étape permet d&amp;rsquo;avoir accès au système car de base le serveur est fourni dans OS.&lt;/p&gt;
+&lt;h2 id=&#34;etape-2-préparer-les-partitions&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#etape-2-pr%c3%a9parer-les-partitions&#34;&gt;
+        #
+    &lt;/a&gt;
+    Etape 2: Préparer les partitions
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Nous allons préparer les partitions afin d&amp;rsquo;installer le système. L&amp;rsquo;utilitaire fdisk est notre meilleur ami !&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;fdisk /dev/sda
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Y créer 4 partitions :&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Partition&lt;/th&gt;
+&lt;th&gt;Taille&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;/boot&lt;/td&gt;
+&lt;td&gt;200Mo&lt;/td&gt;
+&lt;td&gt;ext3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/&lt;/td&gt;
+&lt;td&gt;20Go&lt;/td&gt;
+&lt;td&gt;ext3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;swap&lt;/td&gt;
+&lt;td&gt;2Go&lt;/td&gt;
+&lt;td&gt;ext3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;/home&lt;/td&gt;
+&lt;td&gt;125Go&lt;/td&gt;
+&lt;td&gt;ext4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;etape-3-monter-les-partitions&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#etape-3-monter-les-partitions&#34;&gt;
+        #
+    &lt;/a&gt;
+    Etape 3: Monter les partitions
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir /mnt/gentoo mount /dev/sda2 /mnt/gentoo
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir /mnt/gentoo/boot mount /dev/sda1 /mnt/gentoo/boot
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir /mnt/gentoo/home mount /dev/sda4 /mnt/gentoo/home 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;etape-4-démarrer-linstallation-stage3&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#etape-4-d%c3%a9marrer-linstallation-stage3&#34;&gt;
+        #
+    &lt;/a&gt;
+    Etape 4: Démarrer l&amp;rsquo;installation stage3
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;A partir de maintenant, il faut suivre la documentation officielle Gentoo pour une installation stage3 : &lt;a href=&#34;http://www.gentoo.org/doc/en/handbook/handbook-x86.xml?part=1&amp;amp;chap=5&#34;&gt;http://www.gentoo.org/doc/en/handbook/handbook-x86.xml?part=1&amp;amp;chap=5&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Télécharger l&amp;rsquo;archive stage3 sur le mirroir officiel puis la décompresser&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;links http://www.gentoo.org/main/en/mirrors.xml md5sum -c stage3-i686-.tar.bz2.DIGESTS
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar xvjpf stage3-*.tar.bz2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Installer Portage&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;links http://www.gentoo.org/main/en/mirrors.xml md5sum -c portage-latest.tar.bz2.md5sum
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar xvjf /mnt/gentoo/portage-latest.tar.bz2 -C /mnt/gentoo/usr 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Configurer le fichier make.conf&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## These settings were set by the catalyst build script that automatically &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## built this stage. # Please consult /usr/share/portage/config/make.conf.example for a more&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## detailed example. #CFLAGS=&amp;#34;-O2 -march=i686 -pipe&amp;#34; #CXXFLAGS=&amp;#34;${CFLAGS}&amp;#34; CFLAGS=&amp;#34;-march=i686 --param l1-cache-size=64 --param l1-cache-line-size=64 --param l2-cache-size=1024 -mmmx -msse -msse2 -msse3 -mssse3 -mcx16 -msahf -O2 -pipe -fomit-frame-pointer&amp;#34; CXXFLAGS=&amp;#34;${CFLAGS}&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## WARNING: Changing your CHOST is not something that should be done lightly.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## Please consult http://www.gentoo.org/doc/en/change-chost.xml before changing. CHOST=&amp;#34;i686-pc-linux-gnu&amp;#34; MAKEOPTS=&amp;#34;-j2&amp;#34; GENTOO_MIRRORS=&amp;#34;[url=ftp://ftp.free.fr/mirrors/ftp.gentoo.org/]ftp://ftp.free.fr/mirrors/ftp.gentoo.org/&amp;#34;[/url] SYNC=&amp;#34;rsync://rsync2.fr.gentoo.org/gentoo-portage&amp;#34; ACCEPT_KEYWORDS=&amp;#34;~x86&amp;#34; &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;etape-5-installer-le-système-de-base&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#etape-5-installer-le-syst%c3%a8me-de-base&#34;&gt;
+        #
+    &lt;/a&gt;
+    Etape 5: Installer le système de base
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Copier le fichier resolv.conf&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp -L /etc/resolv.conf /mnt/gentoo/etc 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Chrooter l&amp;rsquo;environnement&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mount -t proc none /mnt/gentoo/proc
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mount -o &lt;span style=&#34;color:#ff5c57&#34;&gt;bind&lt;/span&gt; /dev /mnt/gentoo/dev
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chroot /mnt/gentoo/ /bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;env-update &lt;span style=&#34;color:#ff5c57&#34;&gt;source&lt;/span&gt; /etc/profile &lt;span style=&#34;color:#ff5c57&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;PS1&lt;/span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;(chroot)&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;$PS1&lt;/span&gt;&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mise à jour de l&amp;rsquo;arbre de portage&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; emerge --sync 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Génération des locales&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nano -w /etc/locale.gen &lt;span style=&#34;color:#78787e&#34;&gt;#Dé-commenter les locales à utiliser locale-gen &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;etape-6-configuration-du-kernel&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#etape-6-configuration-du-kernel&#34;&gt;
+        #
+    &lt;/a&gt;
+    Etape 6: Configuration du kernel
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Configuration du fuseau horaire&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cp /usr/share/zoneinfo/Europe/Paris /etc/localtime 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Installation des sources du kernel&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;emerge gentoo-sources 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Compilation du kernel&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;cd&lt;/span&gt; /usr/src/linux 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nano -w .config
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make oldconfig
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## tea time...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;make modules_install
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;etape-7-configuration-du-système&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#etape-7-configuration-du-syst%c3%a8me&#34;&gt;
+        #
+    &lt;/a&gt;
+    Etape 7: Configuration du système
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Création du fichier /etc/fstab&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nano -w /etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/dev/sda1 /boot ext3 noauto,noatime &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/dev/sda2 / ext4 noatime &lt;span style=&#34;color:#ff9f43&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/dev/sda3 none swap sw &lt;span style=&#34;color:#ff9f43&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/dev/sda4 /home ext4 noatime &lt;span style=&#34;color:#ff9f43&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ff9f43&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Configuration du réseau&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;hostname=&amp;#34;sd-33642&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt; /etc/conf.d/hostname
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;nis_domain_lo=&amp;#34;dedibox.fr&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt; /etc/conf.d/net 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;config_eth0=(&amp;#34;88.191.152.102 netmask 255.255.255.0 brd 88.191.152.255&amp;#34; &amp;#34;2a01:e0b:1:152:62eb:69ff:fe8f:18c8/64&amp;#34;)&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/conf.d/net
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;routes_eth0=(&amp;#34;default via 88.191.152.1&amp;#34;)&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/conf.d/net
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;127.0.0.1 sd-33642.dedibox.fr sd-33642 localhost&amp;#39;&lt;/span&gt; &amp;gt; /etc/hosts 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#39;::1 sd-33642.dedibox.fr sd-33642 localhost&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; /etc/hosts 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Configuration du mode passe root&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;passwd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Configuration de /etc/rc.conf. J&amp;rsquo;ai laissé ce fichier avec toutes les options de configuration par défaut&lt;/p&gt;
+&lt;p&gt;Configuration du clavier&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## Use keymap to specify the default console keymap. There is a complete tree&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## of keymaps in /usr/share/keymaps to choose from. keymap=&amp;#34;fr&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## Should we first load the &amp;#39;windowkeys&amp;#39; console keymap? Most x86 users will&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## say &amp;#34;yes&amp;#34; here. Note that non-x86 users should leave it as &amp;#34;no&amp;#34;.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## Loading this keymap will enable VT switching (like ALT+Left/Right)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## using the special windows keys on the linux console. windowkeys=&amp;#34;YES&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## The maps to load for extended keyboards. Most users will leave this as is. extended_keymaps=&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;##extended_keymaps=&amp;#34;backspace keypad euro2&amp;#34; # Tell dumpkeys(1) to interpret character action codes to be&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## from the specified character set.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## This only matters if you set unicode=&amp;#34;yes&amp;#34; in /etc/rc.conf.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## For a list of valid sets, run `dumpkeys --help` dumpkeys_charset=&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## Some fonts map AltGr-E to the currency symbol ¤ instead of the Euro �~B�&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#78787e&#34;&gt;## To fix this, set to &amp;#34;yes&amp;#34; fix_euro=&amp;#34;yes&amp;#34; &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Configuration de l&amp;rsquo;horloge&lt;/p&gt;
+&lt;p&gt;Ajouter clock=&amp;ldquo;local&amp;rdquo; dans le fichier /etc/conf.d/hwclock&lt;/p&gt;
+&lt;h2 id=&#34;etape-8-installation-des-outils-essentiels-au-système&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#etape-8-installation-des-outils-essentiels-au-syst%c3%a8me&#34;&gt;
+        #
+    &lt;/a&gt;
+    Etape 8: Installation des outils essentiels au système
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Installation d&amp;rsquo;un logger&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;emerge -av syslog-ng 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rc-update add syslog-ng default 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mise en place du démon CRON&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;emerge -av vixie-cron 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rc-update add vixie-cron default
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Indexation du système&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;emerge -av mlocate 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ajout de SSH au démarrage du automatique du système&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rc-update add sshd default 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;etape-9-installation-du-bootloader&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#etape-9-installation-du-bootloader&#34;&gt;
+        #
+    &lt;/a&gt;
+    Etape 9: Installation du bootloader
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Installation de Grub&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;emerge -av grub
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mise en place de grub sur le MBR&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;grep -v rootfs /proc/mounts &amp;gt; /etc/mtab grub-install --no-floppy /dev/sda 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

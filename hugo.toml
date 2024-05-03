@@ -1,0 +1,33 @@
+baseURL = 'https://jmar.fr/'
+languageCode = 'fr-fr'
+title = 'jmar.fr'
+theme = 'anubis2'
+
+[author]
+name = "Jérémy Marmol"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.highlight]
+style = 'base16-snazzy'
+
+[menu]
+[[menu.main]]
+name = "Home"
+pageRef = "/"
+weight = 1
+
+[[menu.main]]
+name = "Posts"
+url = "/posts/"
+weight = 2
+
+[params]
+coloTheme = "dark"
+social = [
+    { id="github", name="jmarfr"},
+    { id="github", name="jmapro"},
+    { id="linkedin", url="https://www.linkedin.com/in/jeremy-marmol-55477682/"},
+    { id="twitter", url="https://twitter.com/jeremymarmol"}
+]

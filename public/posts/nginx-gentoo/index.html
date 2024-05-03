@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+
+<html lang="fr-fr" data-theme="">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>Installation de Nginx sur Gentoo - jmar.fr</title>
+
+<meta name="description" content="# Installation de Nginx Nginx est un concurent d&rsquo;apache qui est beaucoup plus performant que ce dernier. http://www.first-world.info/apache-vs-lighttpd-vs-nginx.html Voici comment installer Nginx sous Gentoo &hellip;
+## Compilation de Nginx # Installation de vim-syntax avec nginx :-) echo &#34;www-server/nginx vim-syntax&#34; &gt; /etc/portage/package.use/nginx emerge -av nginx ## Compilation de PHP # N&#39;ayant pas de module dav pour nginx, apache s&#39;en occupera echo &#34;dev-lang/php fpm gd mysql zip apache2&#34; &gt; /etc/portage/package.use/php # Options de compilation pour gd echo &#34;media-libs/gd png&#34; &gt; /etc/portage/package.">
+
+
+
+
+
+<link rel="icon" type="image/x-icon" href="https://jmar.fr/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://jmar.fr/favicon.png">
+
+
+
+
+
+
+
+
+    
+
+
+
+<style>
+  body {
+    visibility: hidden;
+    opacity: 0;
+  }
+</style>
+
+<noscript>
+  <style>
+    body {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</noscript>
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.42c77dbe264b081b6f3745aedeb79de572b52fe570748653a57a0f103228f037.css" integrity="sha256-Qsd9viZLCBtvN0Wu3red5XK1L&#43;VwdIZTpXoPEDIo8Dc=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.c4c04b3ef88e3d619ad4c7ee5e03048422bc55c4fefdc1f07657c1133670aa22.css" integrity="sha256-xMBLPviOPWGa1MfuXgMEhCK8VcT&#43;/cHwdlfBEzZwqiI=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.21c5d8fe0a79d623b0adc1ce4bd4f6dd2c05cd939c9aaaa966ba7186b1464f4d.css" integrity="sha256-IcXY/gp51iOwrcHOS9T23SwFzZOcmqqpZrpxhrFGT00=">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <script src="/js/script.min.08f04d96386c73c9bf4d160333f8f448c05a6e01c06770542ee0e013954ce930.js" type="text/javascript" charset="utf-8" integrity="sha256-CPBNljhsc8m/TRYDM/j0SMBabgHAZ3BULuDgE5VM6TA="></script>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header class="common-header">
+            
+                <div class="header-top">
+    <div class="header-top-left">
+        <h1 class="site-title noselect">
+    <a href="/">jmar.fr</a>
+</h1>
+
+        
+
+
+
+
+
+
+
+    
+        <div class="theme-switcher">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-sun-high"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg>
+
+
+</span>
+
+        </div>
+    
+
+    <script>
+        const STORAGE_KEY = 'user-color-scheme'
+        const defaultTheme = "light"
+
+        let currentTheme
+        let switchButton
+        let autoDefinedScheme = window.matchMedia('(prefers-color-scheme: dark)')
+
+        function switchTheme(e) {
+            currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+            if (localStorage) localStorage.setItem(STORAGE_KEY, currentTheme);
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            changeGiscusTheme(currentTheme);
+            document.body.dispatchEvent(new CustomEvent(currentTheme + "-theme-set"));
+        }
+
+        const autoChangeScheme = e => {
+            currentTheme = e.matches ? 'dark' : 'light'
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            changeGiscusTheme(currentTheme);
+            document.body.dispatchEvent(new CustomEvent(currentTheme + "-theme-set"));
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            switchButton = document.querySelector('.theme-switcher')
+            currentTheme = detectCurrentScheme()
+
+            if (currentTheme === 'auto') {
+                autoChangeScheme(autoDefinedScheme);
+                autoDefinedScheme.addListener(autoChangeScheme);
+            } else {
+                document.documentElement.setAttribute('data-theme', currentTheme)
+            }
+
+            if (switchButton) {
+                switchButton.addEventListener('click', switchTheme, false)
+            }
+
+            showContent();
+        })
+
+        function detectCurrentScheme() {
+            if (localStorage !== null && localStorage.getItem(STORAGE_KEY)) {
+                return localStorage.getItem(STORAGE_KEY)
+            }
+            if (defaultTheme) {
+                return defaultTheme
+            }
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function showContent() {
+            document.body.style.visibility = 'visible';
+            document.body.style.opacity = 1;
+        }
+
+        function changeGiscusTheme (theme) {
+            function sendMessage(message) {
+              const iframe = document.querySelector('iframe.giscus-frame');
+              if (!iframe) return;
+              iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+            }
+
+            sendMessage({
+              setConfig: {
+                theme: theme
+              }
+            });
+        }
+    </script>
+
+
+        <ul class="social-icons noselect">
+
+
+    
+        
+        
+        <li>
+            <a href="https://github.com/jmarfr" title="Github" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        
+        
+        <li>
+            <a href="https://github.com/jmapro" title="Github" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        <li>
+            <a href="https://www.linkedin.com/in/jeremy-marmol-55477682/" title="Linkedin" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 11l0 5" /><path d="M8 8l0 .01" /><path d="M12 16l0 -5" /><path d="M16 16v-3a2 2 0 0 0 -4 0" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        <li>
+            <a href="https://twitter.com/jeremymarmol" title="Twitter" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-twitter"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+
+
+
+
+
+    <li>
+            <a href="/index.xml" title="RSS" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rss"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M4 4a16 16 0 0 1 16 16" /><path d="M4 11a9 9 0 0 1 9 9" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+</ul>
+
+    </div>
+    <div class="header-top-right">
+
+    </div>
+</div>
+
+
+    <nav class="noselect">
+        
+        
+        <a class="" href="https://jmar.fr/" title="">Home</a>
+        
+        <a class="" href="https://jmar.fr/posts/" title="">Posts</a>
+        
+    </nav>
+
+
+
+
+
+
+
+
+            
+        </header>
+        <main id="main" tabindex="-1">
+            
+    
+
+    <article class="post h-entry">
+        <div class="post-header">
+            <header>
+                <h1 class="p-name post-title">Installation de Nginx sur Gentoo</h1>
+                
+
+            </header>
+            
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2012-02-27">2012-02-27</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/nginx-gentoo/">/posts/nginx-gentoo/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+        
+
+  
+  
+
+
+
+
+  
+  
+  
+  <details class="toc noselect">
+    <summary>Table of Contents</summary>
+    <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#installation-de-nginx">Installation de Nginx</a>
+      <ul>
+        <li><a href="#compilation-de-nginx">Compilation de Nginx</a></li>
+        <li><a href="#compilation-de-php">Compilation de PHP</a></li>
+      </ul>
+    </li>
+    <li><a href="#configuration">Configuration</a>
+      <ul>
+        <li><a href="#création-dun-pool-php">Création d&rsquo;un pool PHP</a></li>
+        <li><a href="#configuration-du-vhost-nginx">Configuration du vhost Nginx</a></li>
+      </ul>
+    </li>
+    <li><a href="#démarrage-des-services-web">Démarrage des services Web</a></li>
+    <li><a href="#lancement-automatique-des-services-web-au-redémarrage">Lancement automatique des services web au redémarrage</a></li>
+  </ul>
+</nav></div>
+  </details>
+  
+
+
+
+<script>
+  var toc = document.querySelector(".toc");
+  if (toc) {
+    toc.addEventListener("click", function () {
+      if (event.target.tagName !== "A") {
+        event.preventDefault();
+        if (this.open) {
+          this.open = false;
+          this.classList.remove("expanded");
+        } else {
+          this.open = true;
+          this.classList.add("expanded");
+        }
+      }
+    });
+  }
+</script>
+
+        <div class="content e-content">
+            <h2 id="installation-de-nginx" >
+<div>
+    <a href="#installation-de-nginx">
+        #
+    </a>
+    Installation de Nginx
+</div>
+</h2>
+<p>Nginx est un concurent d&rsquo;apache qui est beaucoup plus performant que ce dernier. <a href="http://www.first-world.info/apache-vs-lighttpd-vs-nginx.html">http://www.first-world.info/apache-vs-lighttpd-vs-nginx.html</a> Voici comment installer Nginx sous Gentoo &hellip;</p>
+<h3 id="compilation-de-nginx" >
+<div>
+    <a href="#compilation-de-nginx">
+        ##
+    </a>
+    Compilation de Nginx
+</div>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#78787e"># Installation de vim-syntax avec nginx :-)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">echo</span> <span style="color:#5af78e">&#34;www-server/nginx vim-syntax&#34;</span> &gt; /etc/portage/package.use/nginx
+</span></span><span style="display:flex;"><span>emerge -av nginx
+</span></span></code></pre></div><h3 id="compilation-de-php" >
+<div>
+    <a href="#compilation-de-php">
+        ##
+    </a>
+    Compilation de PHP
+</div>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#78787e"># N&#39;ayant pas de module dav pour nginx, apache s&#39;en occupera</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">echo</span> <span style="color:#5af78e">&#34;dev-lang/php fpm gd mysql zip apache2&#34;</span> &gt; /etc/portage/package.use/php
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#78787e"># Options de compilation pour gd</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">echo</span> <span style="color:#5af78e">&#34;media-libs/gd png&#34;</span> &gt; /etc/portage/package.use/gd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#78787e">#Options de compilation pour png</span>
+</span></span><span style="display:flex;"><span><span style="color:#78787e"># Ici la version de php a été forcée car sinon il y a des problèmes de dépendances.</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">echo</span> <span style="color:#5af78e">&#34;=dev-lang/php-5.3.8 truetype bcmath sockets&#34;</span> &gt; /etc/portage/package.use/png 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>emerge -av php
+</span></span></code></pre></div><h2 id="configuration" >
+<div>
+    <a href="#configuration">
+        #
+    </a>
+    Configuration
+</div>
+</h2>
+<h3 id="création-dun-pool-php" >
+<div>
+    <a href="#cr%c3%a9ation-dun-pool-php">
+        ##
+    </a>
+    Création d&rsquo;un pool PHP
+</div>
+</h3>
+<p>Editer le fichier /etc/php/fpm-php/php-fpm.conf</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#ff6ac1">[global]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#57c7ff">error_log</span> <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">/var/log/php-fpm.log</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">[monpool]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#57c7ff">listen</span> <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">127.0.0.1:9000</span>
+</span></span><span style="display:flex;"><span><span style="color:#57c7ff">user</span> <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">www-data</span>
+</span></span><span style="display:flex;"><span><span style="color:#57c7ff">group</span> <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">www-data</span>
+</span></span><span style="display:flex;"><span><span style="color:#57c7ff">pm</span> <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">dynamic</span>
+</span></span><span style="display:flex;"><span><span style="color:#57c7ff">pm.max_children</span> <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">50</span>
+</span></span><span style="display:flex;"><span><span style="color:#57c7ff">pm.min_spare_servers</span> <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#57c7ff">pm.max_spare_servers</span> <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">35</span>
+</span></span></code></pre></div><h4 id="détail-des-paramètres-utilisés" >
+<div>
+    <a href="#d%c3%a9tail-des-param%c3%a8tres-utilis%c3%a9s">
+        ###
+    </a>
+    Détail des paramètres utilisés
+</div>
+</h4>
+<p><strong>error_log</strong> : Spécifie l&rsquo;emplacement des logs<br>
+<strong>listen</strong> : Spécifie l&rsquo;ip et le port d&rsquo;écoute de php-fpm<br>
+<strong>user/group</strong> : Utilisateur et group d&rsquo;exécution pour php-fpm<br>
+<strong>pm</strong> = dynamic : PHP ne démarre pas immédiatement tous ses workers. Ils sont démarrés de façon dynamique.<br>
+<strong>pm.max_children</strong> : Ici nous aurons au maximum 50 processus fils créés.<br>
+<strong>pm.min_spare_servers</strong> : Ici 5 workers seront démarrés au lancement de PHP. Ceci est le nombre minimum de processus IDLE que nous trouverons sur le système.<br>
+<strong>pm.max_spare_servers</strong> : Ici il y aura au maximum 35 workers PHP en IDLE. Ceci est réglé automatiquement en fonctione de la charge.</p>
+<h3 id="configuration-du-vhost-nginx" >
+<div>
+    <a href="#configuration-du-vhost-nginx">
+        ##
+    </a>
+    Configuration du vhost Nginx
+</div>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nginx" data-lang="nginx"><span style="display:flex;"><span><span style="color:#ff6ac1">upstream</span> <span style="color:#5af78e">php</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#78787e"># Pas forcément utile ici, 
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span> <span style="color:#78787e"># permets de faire du load-balancing entre différents serveurs php.
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>      <span style="color:#78787e">#server unix:/tmp/php-cgi.socket;
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>      <span style="color:#ff6ac1">server</span> 127.0.0.1:<span style="color:#ff9f43">9000</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#78787e">#Equivalent à 
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>
+</span></span><span style="display:flex;"><span> <span style="color:#ff6ac1">server</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#78787e">#On écoute sur toutes les interfaces
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>
+</span></span><span style="display:flex;"><span>       <span style="color:#ff6ac1">listen</span>       <span style="color:#5af78e">*</span>;
+</span></span><span style="display:flex;"><span>       <span style="color:#ff6ac1">server_name</span>  <span style="color:#5af78e">monsite.com</span>  <span style="color:#5af78e">www.monsite.com</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#ff6ac1">access_log</span> <span style="color:#5af78e">/var/logs/nginx/monsite.com/access.log</span> <span style="color:#5af78e">main</span>;
+</span></span><span style="display:flex;"><span>       <span style="color:#ff6ac1">error_log</span> <span style="color:#5af78e">/var/logs/nginx/monsite.com/error.log</span> <span style="color:#5af78e">info</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#ff6ac1">root</span> <span style="color:#5af78e">/var/www/monsite.com</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#78787e"># Fichier d&#39;index par defaut. Surcharge la valeur indiquée dans nginx.conf
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>       <span style="color:#ff6ac1">index</span> <span style="color:#5af78e">index.php</span>; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#ff6ac1">location</span> = <span style="color:#5af78e">/favicon.ico</span> {
+</span></span><span style="display:flex;"><span>             <span style="color:#78787e">#On désactive les logs 404 et les access log pour les favicon.ico
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>             <span style="color:#ff6ac1">log_not_found</span> <span style="color:#ff9f43">off</span>;
+</span></span><span style="display:flex;"><span>             <span style="color:#ff6ac1">access_log</span> <span style="color:#ff9f43">off</span>;
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#ff6ac1">location</span> = <span style="color:#5af78e">/robots.txt</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#78787e">#On autorise tout le monde à avoir accès au fichier robots.txt et on 
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>            <span style="color:#78787e"># désactive les logs pour ce fichier.
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>            <span style="color:#ff6ac1">allow</span> <span style="color:#5af78e">all</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">log_not_found</span> <span style="color:#ff9f43">off</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">access_log</span> <span style="color:#ff9f43">off</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ff6ac1">location</span> <span style="color:#5af78e">/</span> {
+</span></span><span style="display:flex;"><span>       <span style="color:#78787e">#Si l&#39;uri n&#39;existe pas, 
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>       <span style="color:#78787e"># on renvoie sur index.php
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>       <span style="color:#ff6ac1">try_files</span> <span style="color:#ff5c57">$uri</span> <span style="color:#ff5c57">$uri/</span> <span style="color:#5af78e">/index.php</span>;
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ff6ac1">location</span> ~ <span style="color:#5af78e">\.php</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#78787e">#Pour chaque fichier *.php, 
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>      <span style="color:#78787e"># on charge la configuration php et on fait du proxypass vers le serveur php-fpm.
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>       <span style="color:#ff6ac1">include</span> <span style="color:#5af78e">conf/fastcgi.conf</span>;
+</span></span><span style="display:flex;"><span>       <span style="color:#ff6ac1">fastcgi_intercept_errors</span> <span style="color:#ff9f43">on</span>;
+</span></span><span style="display:flex;"><span>       <span style="color:#ff6ac1">fastcgi_pass</span> <span style="color:#5af78e">php</span>;
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ff6ac1">location</span> ~<span style="color:#5af78e">*</span> <span style="color:#5af78e">\.(js|css|png|jpg|jpeg|gif|ico)</span>$ {
+</span></span><span style="display:flex;"><span>       <span style="color:#78787e"># Tous les fichiers de type js,css,png,jpd,jpeg ... 
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>       <span style="color:#78787e"># sont mis en cache pendant 24h. 
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>       <span style="color:#78787e"># De plus les logs sont désactivés sur ces fichiers.
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>       <span style="color:#ff6ac1">expires</span> <span style="color:#5af78e">24h</span>;
+</span></span><span style="display:flex;"><span>       <span style="color:#ff6ac1">log_not_found</span> <span style="color:#ff9f43">off</span>;
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ff6ac1">location</span> ~ <span style="color:#5af78e">\.htpasswd</span> {
+</span></span><span style="display:flex;"><span>       <span style="color:#78787e"># On interdit l&#39;accès au fichier .htpasswd
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>       <span style="color:#ff6ac1">deny</span> <span style="color:#5af78e">all</span>;
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#ff6ac1">server</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#78787e">#On écoute sur le port 443. Ce vhost sera le vhost SSL par défaut.
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>     <span style="color:#ff6ac1">listen</span> <span style="color:#ff9f43">443</span> <span style="color:#5af78e">default_server</span> <span style="color:#5af78e">ssl</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">server_name</span> <span style="color:#5af78e">monsite.com</span> <span style="color:#5af78e">www.monsite.com</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">access_log</span> <span style="color:#5af78e">/var/logs/nginx/monsite.com/access-ssl.log</span> <span style="color:#5af78e">main</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">error_log</span> <span style="color:#5af78e">/var/logs/nginx/monsite.com/error-ssl.log</span> <span style="color:#5af78e">info</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">root</span> <span style="color:#5af78e">/var/www/monsite.com</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">index</span> <span style="color:#5af78e">index.php</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">location</span> = <span style="color:#5af78e">/favicon.ico</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">log_not_found</span> <span style="color:#ff9f43">off</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">access_log</span> <span style="color:#ff9f43">off</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">location</span> = <span style="color:#5af78e">/robots.txt</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">allow</span> <span style="color:#5af78e">all</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">log_not_found</span> <span style="color:#ff9f43">off</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">access_log</span> <span style="color:#ff9f43">off</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">location</span> <span style="color:#5af78e">/</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#78787e">#Si l&#39;uri n&#39;existe pas, on renvoie sur index.php
+</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>         <span style="color:#ff6ac1">try_files</span> <span style="color:#ff5c57">$uri</span> <span style="color:#ff5c57">$uri/</span> <span style="color:#5af78e">/index.php</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">location</span> ~ <span style="color:#5af78e">\.php</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">include</span> <span style="color:#5af78e">conf/fastcgi.conf</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">fastcgi_intercept_errors</span> <span style="color:#ff9f43">on</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">fastcgi_pass</span> <span style="color:#5af78e">php</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">location</span> ~<span style="color:#5af78e">*</span> <span style="color:#5af78e">\.(js|css|png|jpg|jpeg|gif|ico)</span>$ {
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">expires</span> <span style="color:#5af78e">24h</span>;
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">log_not_found</span> <span style="color:#ff9f43">off</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ff6ac1">location</span> ~ <span style="color:#5af78e">\.htpasswd</span> {
+</span></span><span style="display:flex;"><span>         <span style="color:#ff6ac1">deny</span> <span style="color:#5af78e">all</span>;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><p>Notez que dans la configuration du vhost SSL, il n&rsquo;y pas d&rsquo;information sur les certificats. En effet, ils ont été déclarés dans la configuration globale car ce sont des certificats wildcard. Ils sont donc valables pour tous les sous-domaine du site. Il est donc inutile de les redéfinir dans chaque vhost SSL. Par contre si il y a plusieurs domaines hébergés sur le même nginx, cette méthode n&rsquo;est pas applicable.</p>
+<h2 id="démarrage-des-services-web" >
+<div>
+    <a href="#d%c3%a9marrage-des-services-web">
+        #
+    </a>
+    Démarrage des services Web
+</div>
+</h2>
+<p>Lancement / Arrêt / Recharger la configuration Un init script a été installé automatiquement. Il permet de lancer/arrêter ou de recharger la configuration de nginx et php</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/etc/init.d/nginx <span style="color:#ff6ac1">(</span>start|stop|restart|reload<span style="color:#ff6ac1">)</span>
+</span></span><span style="display:flex;"><span>/etc/init.d/php*fpm <span style="color:#ff6ac1">(</span>start|stop|restart|reload<span style="color:#ff6ac1">)</span>
+</span></span></code></pre></div><h2 id="lancement-automatique-des-services-web-au-redémarrage" >
+<div>
+    <a href="#lancement-automatique-des-services-web-au-red%c3%a9marrage">
+        #
+    </a>
+    Lancement automatique des services web au redémarrage
+</div>
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rc-update add nginx default
+</span></span><span style="display:flex;"><span>rc-update add php-fpm default
+</span></span></code></pre></div>
+        </div>
+
+    </article>
+
+    
+    
+
+    
+        
+        
+    
+
+    
+
+    
+        
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+        </main>
+        
+            <footer class="common-footer noselect">
+    
+    
+
+    <div class="common-footer-bottom">
+        
+
+        <div style="display: flex; align-items: center; gap:8px">
+            © Jérémy Marmol, 2024
+            
+        </div>
+        <div style="display:flex;align-items: center">
+            
+            
+            
+            
+            
+            
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener noreferrer" href="https://gohugo.io/">Hugo</a>, theme <a target="_blank" rel="noopener noreferrer" href="https://github.com/Junyi-99/hugo-theme-anubis2">Anubis2</a>.<br>
+            
+
+        </div>
+    </div>
+
+    <p class="h-card vcard">
+
+    <a href=https://jmar.fr/ class="p-name u-url url fn" rel="me"></a>
+
+    
+
+    
+</p>
+
+</footer>
+
+        
+    </div>
+</body>
+</html>
