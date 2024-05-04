@@ -1,0 +1,54 @@
+==================================================================
+https://keybase.io/jeremymarmol
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.jmar.fr
+  * I am jeremymarmol (https://keybase.io/jeremymarmol) on keybase.
+  * I have a public key ASC47U_DVwHuZuFnzMN232yCpJWhtQ1UoUOV-qteReOUSgo
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0120b8ed4fc35701ee66e167ccc376df6c82a495a1b50d54a14395faab5e45e3944a0a",
+            "host": "keybase.io",
+            "kid": "0120b8ed4fc35701ee66e167ccc376df6c82a495a1b50d54a14395faab5e45e3944a0a",
+            "uid": "bb9f409d1693bd34ae6442cf1abe0119",
+            "username": "jeremymarmol"
+        },
+        "service": {
+            "hostname": "www.jmar.fr",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "client": {
+        "name": "keybase.io go client",
+        "version": "1.0.18"
+    },
+    "ctime": 1486908943,
+    "expire_in": 504576000,
+    "merkle_root": {
+        "ctime": 1486908920,
+        "hash": "703225cdf2a550ab3c1a299eb40eb62842fe22f907ddbcd575893f2306bffddaeb02aa440696b4815900a9ae410cce63a677116ee6e27bbff43d8c6150930397",
+        "seqno": 880358
+    },
+    "prev": "39c18812bc0a81c927ca771e8db69fd9d4d5417b3214214cc17797d6a7434046",
+    "seqno": 8,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEguO1Pw1cB7mbhZ8zDdt9sgqSVobUNVKFDlfqrXkXjlEoKp3BheWxvYWTFAvd7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwYjhlZDRmYzM1NzAxZWU2NmUxNjdjY2MzNzZkZjZjODJhNDk1YTFiNTBkNTRhMTQzOTVmYWFiNWU0NWUzOTQ0YTBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwYjhlZDRmYzM1NzAxZWU2NmUxNjdjY2MzNzZkZjZjODJhNDk1YTFiNTBkNTRhMTQzOTVmYWFiNWU0NWUzOTQ0YTBhIiwidWlkIjoiYmI5ZjQwOWQxNjkzYmQzNGFlNjQ0MmNmMWFiZTAxMTkiLCJ1c2VybmFtZSI6ImplcmVteW1hcm1vbCJ9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoid3d3LmptYXIuZnIiLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC4xOCJ9LCJjdGltZSI6MTQ4NjkwODk0MywiZXhwaXJlX2luIjo1MDQ1NzYwMDAsIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNDg2OTA4OTIwLCJoYXNoIjoiNzAzMjI1Y2RmMmE1NTBhYjNjMWEyOTllYjQwZWI2Mjg0MmZlMjJmOTA3ZGRiY2Q1NzU4OTNmMjMwNmJmZmRkYWViMDJhYTQ0MDY5NmI0ODE1OTAwYTlhZTQxMGNjZTYzYTY3NzExNmVlNmUyN2JiZmY0M2Q4YzYxNTA5MzAzOTciLCJzZXFubyI6ODgwMzU4fSwicHJldiI6IjM5YzE4ODEyYmMwYTgxYzkyN2NhNzcxZThkYjY5ZmQ5ZDRkNTQxN2IzMjE0MjE0Y2MxNzc5N2Q2YTc0MzQwNDYiLCJzZXFubyI6OCwidGFnIjoic2lnbmF0dXJlIn2jc2lnxEAur/mDkci352KiiUzGoqPJo0U85GXOsXllavE2cvDsMtzKM+YYEHc581gLmxOl/pOwFvB62Uxy9YZz/FAbo8cDqHNpZ190eXBlIKRoYXNogqR0eXBlCKV2YWx1ZcQgeMPuEj8og3D2BPATMd46wXk5ILfBjJ974c88xqQh2sWjdGFnzQICp3ZlcnNpb24B
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jeremymarmol
+
+==================================================================

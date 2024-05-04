@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+
+<html lang="fr-fr" data-theme="">
+<head>
+	<meta name="generator" content="Hugo 0.125.5">
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>jmar.fr</title>
+
+<meta name="description" content="">
+
+
+
+
+
+<link rel="alternate" type="application/rss+xml" href="/index.xml" title="jmar.fr" />
+<link rel="icon" type="image/x-icon" href="https://jmar.fr/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://jmar.fr/favicon.png">
+
+
+
+
+
+
+
+
+    
+
+
+
+<style>
+  body {
+    visibility: hidden;
+    opacity: 0;
+  }
+</style>
+
+<noscript>
+  <style>
+    body {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</noscript>
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.42c77dbe264b081b6f3745aedeb79de572b52fe570748653a57a0f103228f037.css" integrity="sha256-Qsd9viZLCBtvN0Wu3red5XK1L&#43;VwdIZTpXoPEDIo8Dc=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.c4c04b3ef88e3d619ad4c7ee5e03048422bc55c4fefdc1f07657c1133670aa22.css" integrity="sha256-xMBLPviOPWGa1MfuXgMEhCK8VcT&#43;/cHwdlfBEzZwqiI=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.21c5d8fe0a79d623b0adc1ce4bd4f6dd2c05cd939c9aaaa966ba7186b1464f4d.css" integrity="sha256-IcXY/gp51iOwrcHOS9T23SwFzZOcmqqpZrpxhrFGT00=">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <script src="/js/script.min.08f04d96386c73c9bf4d160333f8f448c05a6e01c06770542ee0e013954ce930.js" type="text/javascript" charset="utf-8" integrity="sha256-CPBNljhsc8m/TRYDM/j0SMBabgHAZ3BULuDgE5VM6TA="></script>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header class="common-header">
+            
+                <div class="header-top">
+    <div class="header-top-left">
+        <h1 class="site-title noselect">
+    <a href="/">jmar.fr</a>
+</h1>
+
+        
+
+
+
+
+
+
+
+    
+        <div class="theme-switcher">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-sun-high"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg>
+
+
+</span>
+
+        </div>
+    
+
+    <script>
+        const STORAGE_KEY = 'user-color-scheme'
+        const defaultTheme = "light"
+
+        let currentTheme
+        let switchButton
+        let autoDefinedScheme = window.matchMedia('(prefers-color-scheme: dark)')
+
+        function switchTheme(e) {
+            currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+            if (localStorage) localStorage.setItem(STORAGE_KEY, currentTheme);
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            changeGiscusTheme(currentTheme);
+            document.body.dispatchEvent(new CustomEvent(currentTheme + "-theme-set"));
+        }
+
+        const autoChangeScheme = e => {
+            currentTheme = e.matches ? 'dark' : 'light'
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            changeGiscusTheme(currentTheme);
+            document.body.dispatchEvent(new CustomEvent(currentTheme + "-theme-set"));
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            switchButton = document.querySelector('.theme-switcher')
+            currentTheme = detectCurrentScheme()
+
+            if (currentTheme === 'auto') {
+                autoChangeScheme(autoDefinedScheme);
+                autoDefinedScheme.addListener(autoChangeScheme);
+            } else {
+                document.documentElement.setAttribute('data-theme', currentTheme)
+            }
+
+            if (switchButton) {
+                switchButton.addEventListener('click', switchTheme, false)
+            }
+
+            showContent();
+        })
+
+        function detectCurrentScheme() {
+            if (localStorage !== null && localStorage.getItem(STORAGE_KEY)) {
+                return localStorage.getItem(STORAGE_KEY)
+            }
+            if (defaultTheme) {
+                return defaultTheme
+            }
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function showContent() {
+            document.body.style.visibility = 'visible';
+            document.body.style.opacity = 1;
+        }
+
+        function changeGiscusTheme (theme) {
+            function sendMessage(message) {
+              const iframe = document.querySelector('iframe.giscus-frame');
+              if (!iframe) return;
+              iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+            }
+
+            sendMessage({
+              setConfig: {
+                theme: theme
+              }
+            });
+        }
+    </script>
+
+
+        <ul class="social-icons noselect">
+
+
+    
+        
+        
+        <li>
+            <a href="https://github.com/jmarfr" title="Github" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        
+        
+        <li>
+            <a href="https://github.com/jmapro" title="Github" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        <li>
+            <a href="https://www.linkedin.com/in/jeremy-marmol-55477682/" title="Linkedin" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 11l0 5" /><path d="M8 8l0 .01" /><path d="M12 16l0 -5" /><path d="M16 16v-3a2 2 0 0 0 -4 0" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        <li>
+            <a href="https://twitter.com/jeremymarmol" title="Twitter" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-twitter"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+
+
+
+
+
+    <li>
+            <a href="/index.xml" title="RSS" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rss"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M4 4a16 16 0 0 1 16 16" /><path d="M4 11a9 9 0 0 1 9 9" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+</ul>
+
+    </div>
+    <div class="header-top-right">
+
+    </div>
+</div>
+
+
+    <nav class="noselect">
+        
+        
+        <a class=" active" href="https://jmar.fr/" title="">Home</a>
+        
+        <a class="" href="https://jmar.fr/posts/" title="">Posts</a>
+        
+    </nav>
+
+
+
+
+
+
+
+
+            
+        </header>
+        <main id="main" tabindex="-1">
+            
+    <div class="homepage-content">
+        
+    </div>
+
+    <div class="articles h-feed">
+        
+        
+            <article class="post-list h-feed post-card">
+    <div class="post-header">
+        <header>
+            <h1 class="p-name post-title"><a class="u-url" href="/posts/wireguard-deploy-and-routing/">Wireguard: Déploiement et routage</a></h1>
+        </header>
+        
+
+    </div>
+
+    
+        <div class="content post-summary p-summary">
+            # Installation L&rsquo;installation est très simple. Il y a beaucoup de sources disponibles sur internet. Perso j&rsquo;ai suivi la doc de https://wiki.archlinux.org/title/WireGuard qui est très complète. L&rsquo;installation et la connexion se révèle très simple et ne pose pas de problème particulier.
+## Configuration serveur [Interface] ListenPort = 51871 PrivateKey = (hidden) Address = 192.168.10.1/24, fdc9:281f:04d7:9ee9::1/64 [Peer] PublicKey = oENZzrPBIl1fBguDPNAzTEzBZtXh/3i1DoEXTBOg7jI= AllowedIPs = 192.168.10.2/32,fdc9:281f:04d7:9ee9::2/128 Endpoint = [2a01:cb05:83c2:5300:6665:4c49:6699:c6ea]:51871 ## Configuration côté client [Interface] Address = 192.
+        </div>
+    
+    
+
+    
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2021-08-24">2021-08-24</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/wireguard-deploy-and-routing/">/posts/wireguard-deploy-and-routing/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+</article>
+
+        
+            <article class="post-list h-feed post-card">
+    <div class="post-header">
+        <header>
+            <h1 class="p-name post-title"><a class="u-url" href="/posts/psql-doublons/">PostgreSQL: Trouver des doublons dans une table</a></h1>
+        </header>
+        
+
+    </div>
+
+    
+        <div class="content post-summary p-summary">
+            Dans PostgreSQL, il existe les window functions qui permettent de faire des calculs sur un ensemble d&rsquo;éléments liés aux éléments courants. Dans le cas présent, nous allons demander à PostgreSQL de regrouper les éléments en fonction de la valeur de deux champs.
+Jeu de test : CREATE TABLE double (id serial PRIMARY KEY, name text, value int ); INSERT INTO double (name, value) VALUES (&#39;nom1&#39;, 1); INSERT INTO double (name, value) VALUES (&#39;nom1&#39;, 2); INSERT INTO double (name, value) VALUES (&#39;nom1&#39;, 3); INSERT INTO double (name, value) VALUES (&#39;nom2&#39;, 1); INSERT INTO double (name, value) VALUES (&#39;nom2&#39;, 2); INSERT INTO double (name, value) VALUES (&#39;nom2&#39;, 3); INSERT INTO double (name, value) VALUES (&#39;nom3&#39;, 1); INSERT INTO double (name, value) VALUES (&#39;nom1&#39;, 1); INSERT INTO double (name, value) VALUES (&#39;nom1&#39;, 1); Nous allons maintenant rechercher les doublons sur le couple nom, valeur.
+        </div>
+    
+    
+
+    
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2015-05-23">2015-05-23</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/psql-doublons/">/posts/psql-doublons/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+</article>
+
+        
+            <article class="post-list h-feed post-card">
+    <div class="post-header">
+        <header>
+            <h1 class="p-name post-title"><a class="u-url" href="/posts/firewalld/">Mise en place de firewalld</a></h1>
+        </header>
+        
+
+    </div>
+
+    
+        <div class="content post-summary p-summary">
+            # Introduction FirewallD est une surcouche à Iptables installée par défaut sur RedHat 7 et CentOS 7. Contrairement aux anciens modèles de parefeux (system-config-firewall/lokkit), chaque changement nécessitait un redémarrage complet du parefeu. FirewallD récupère les informations sur les règle parefeu active via D-BUS et réalise les changement dynamiquement via celui-ci en utilisant les méthodes d&rsquo;authentification de PolicyKit. FirewallD permet aussi entre autre de créer différentes zones et d&rsquo;y appliquer des règles différentes.
+        </div>
+    
+    
+
+    
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2015-04-26">2015-04-26</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/firewalld/">/posts/firewalld/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+</article>
+
+        
+            <article class="post-list h-feed post-card">
+    <div class="post-header">
+        <header>
+            <h1 class="p-name post-title"><a class="u-url" href="/posts/pypi-mirroring/">Pypi Mirroring</a></h1>
+        </header>
+        
+
+    </div>
+
+    
+        <div class="content post-summary p-summary">
+            # Installation d&rsquo;un mirroir Pypi local $ROOTDIR = Répertoire de stockage du projet.
+Création d&rsquo;un virtualenv pour héberger le projet virtualenv pypimirror Installation de pypimirror source pypimirror/bin/activate pip install pypimirror Depuis la version 1.0.15, il est demandé d&rsquo;installer BeautifulSoup en version &lt;=3.0.9999 hors ces versions ne sont plus disponibles sur Pypi &hellip; J&rsquo;ai donc installé la 1.0.14.
+cd $ROOTDIR/pypimirror wget https://pypi.python.org/packages/source/z/z3c.pypimirror/z3c.pypimirror-1.0.14.tar.gz tar xvzf z3c.pypimirror-1.0.14.tar.gz cd z3c.pypimirror-1.0.14 python setup.py install Création du fichier de configuration.
+        </div>
+    
+    
+
+    
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2014-08-12">2014-08-12</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/pypi-mirroring/">/posts/pypi-mirroring/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+</article>
+
+        
+            <article class="post-list h-feed post-card">
+    <div class="post-header">
+        <header>
+            <h1 class="p-name post-title"><a class="u-url" href="/posts/pgsql-yum/">Installation de PostgreSQL via YUM</a></h1>
+        </header>
+        
+
+    </div>
+
+    
+        <div class="content post-summary p-summary">
+            Note: Toute cette procédure est applicable pour Centos6
+# 1. Configurer le dépôt officiel rpm -ivh http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm # 2. Installer les paquets nécessaires yum install postgresql93 postgresql93-server postgresql93-contrib --enablerepo=postgresql93 # 3. Créer le fichier de paramètres Sous Centos, il est possible de créer un fichier dans /etc/sysconfig/pgsql/. Ce fichier permet de fixer les valeurs par defaut de l&rsquo;instance
+/etc/sysconfig/pgsql/postgresql-9.3: PGDATA=&#34;/srv/postgresql/&#34; PGPORT=&#34;5432&#34; PG_INITDB_OPTS=&#34;--locale=en_US.UTF8&#34; # 4. Initialisation de l&rsquo;instance /etc/init.d/postgresql-9.3 initdb Ne pas oublier d&rsquo;activer PostgreSQL au démarrage de la machine :
+        </div>
+    
+    
+
+    
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2014-05-14">2014-05-14</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/pgsql-yum/">/posts/pgsql-yum/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+</article>
+
+        
+            <article class="post-list h-feed post-card">
+    <div class="post-header">
+        <header>
+            <h1 class="p-name post-title"><a class="u-url" href="/posts/fabric-windows/">Utilisation de Fabric sous Windows</a></h1>
+        </header>
+        
+
+    </div>
+
+    
+        <div class="content post-summary p-summary">
+            # Prérequis Une version fonctionnelle de python. L&rsquo;installation de Fabric nécessite pycrypto qui est assez compliqué à compiler.
+J&rsquo;ai donc préféré chercher des binaires précompilés sur le net pycrypto-2.3.1.win7x64-py2.7x64.7z.
+Décompresser l&rsquo;archive à la racine du virtualenv utilisé pour Fabric.
+# Installation de Fabric pip install fabric
+        </div>
+    
+    
+
+    
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2013-11-24">2013-11-24</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/fabric-windows/">/posts/fabric-windows/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+</article>
+
+        
+            <article class="post-list h-feed post-card">
+    <div class="post-header">
+        <header>
+            <h1 class="p-name post-title"><a class="u-url" href="/posts/python-windows/">Python sous Windows</a></h1>
+        </header>
+        
+
+    </div>
+
+    
+        <div class="content post-summary p-summary">
+            # Installation Pour commencer télécharger l&rsquo;installeur python2.7 sur le site officiel http://python.org/ftp/python/2.7.4/python-2.7.4.msi
+## Mise en place de setuptool et pip Afin de faciliter l&rsquo;installation des paquets python, il faut installer setuptool et pip. Pour ce faire, la documentation officiel python propose deux scripts qui font tout le travail. ez_setup.py et get-pip.py Une fois les deux scripts téléchargés, il suffit de les lancer .\ez_setup.py .\get-pip.py
+Ajouter les entrées suivantes dans le PATH Windows : C:\Python27;C:\Python27\Scripts\
+        </div>
+    
+    
+
+    
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2013-11-24">2013-11-24</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/python-windows/">/posts/python-windows/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+</article>
+
+        
+            <article class="post-list h-feed post-card">
+    <div class="post-header">
+        <header>
+            <h1 class="p-name post-title"><a class="u-url" href="/posts/proftpd-postgresql-auth/">Authentification PostgreSQL pour Proftpd</a></h1>
+        </header>
+        
+
+    </div>
+
+    
+        <div class="content post-summary p-summary">
+            # Préparation de la base PostgreSQL ## Création de l&rsquo;utilisateur CREATE USER ftp LOGIN ENCRYPTED PASSWORD &#39;sup3rs3cret&#39;; CREATE DATABASE ftpuser OWNER ftp; CREATE TABLE users ( pkid serial PRIMARY KEY, userid text NOT NULL UNIQUE, passwd text, uid int, gid int, homedir text, shell text ); CREATE TABLE groups ( groupname VARCHAR(30) NOT NULL, gid INTEGER NOT NULL, members VARCHAR(255) ); Ajout de l&rsquo;extention pgcrypto pour les mots de passe Nécessiste d&rsquo;avoir le paquet contrib d&rsquo;installé.
+        </div>
+    
+    
+
+    
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2013-11-18">2013-11-18</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/proftpd-postgresql-auth/">/posts/proftpd-postgresql-auth/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+</article>
+
+        
+            <article class="post-list h-feed post-card">
+    <div class="post-header">
+        <header>
+            <h1 class="p-name post-title"><a class="u-url" href="/posts/mysql-stored-proc/">MySQL Procédures Stockées</a></h1>
+        </header>
+        
+
+    </div>
+
+    
+        <div class="content post-summary p-summary">
+            J&rsquo;ai eu besoin, dans le cadre d&rsquo;un projet, de supprimer des lignes sur certaines tables contenant un ID spécifique. Cette manipulation devant se faire régulièrement, une procédure stockée a été créée.
+DELIMITER $$ DROP PROCEDURE IF EXISTS DeleteOrphan$$ CREATE PROCEDURE DeleteOrphan(IN hwid INT) BEGIN DECLARE done INT DEFAULT 0; DECLARE var_table VARCHAR(64); DECLARE curseur1 CURSOR FOR SELECT DISTINCT table_name FROM information_schema.tables WHERE table_name LIKE &#39;aaa_%&#39; AND table_schema=&#39;MySchema&#39;; DECLARE CONTINUE HANDLER FOR SQLSTATE &#39;02000&#39; SET done = 1; -- Ouverture du curseur OPEN curseur1; REPEAT -- On récupère chaque élément dans var_table FETCH curseur1 INTO var_table; -- Si done = 0 (donc tant qu&#39;on a pas SQLSTAT 02000 IF done = 0 THEN SET @query = CONCAT(&#39;DELETE FROM &#39;, var_table,&#39; WHERE hardware_id = &#39;, hwid); PREPARE stmt FROM @query; EXECUTE stmt; END IF; UNTIL done -- Done = 1 si on a SQLSTAT 02000 (No data - zero rows fetched, selected, or processed ) END REPEAT; CLOSE curseur1; END$$ DELIMITER ; 
+        </div>
+    
+    
+
+    
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2013-08-02">2013-08-02</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/mysql-stored-proc/">/posts/mysql-stored-proc/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+</article>
+
+        
+            <article class="post-list h-feed post-card">
+    <div class="post-header">
+        <header>
+            <h1 class="p-name post-title"><a class="u-url" href="/posts/pgsql-del-table-with-owner/">PostgreSQL - Suppression de tables en fonction du Owner</a></h1>
+        </header>
+        
+
+    </div>
+
+    
+        <div class="content post-summary p-summary">
+            Suite à une fausse manipulation, j&rsquo;ai importé l&rsquo;ensemble de mes bases de données dans la base template1. Conséquence, toutes les nouvelles bases de données créées le seraient avec le schéma de toutes les autres bases. C&rsquo;est moche ! Le nombre de table étant importantes, j&rsquo;ai donc créé une procédure stockée afin de supprimer rapidement les tables en fonction d&rsquo;un owner passé en paramètre.
+Connexion à la base Postgres à nettoyer
+        </div>
+    
+    
+
+    
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2012-07-16">2012-07-16</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/pgsql-del-table-with-owner/">/posts/pgsql-del-table-with-owner/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+</article>
+
+        
+        
+    
+    
+    <div class="pagination noselect">
+        <div class="left pagination-item disabled">
+            
+        </div>
+        <div class="right pagination-item ">
+            
+                <a href="/page/2/">to old posts</a>
+            
+        </div>
+    </div>
+
+
+    </div>
+
+
+        </main>
+        
+            <footer class="common-footer noselect">
+    
+    
+
+    <div class="common-footer-bottom">
+        
+
+        <div style="display: flex; align-items: center; gap:8px">
+            © Jérémy Marmol, 2024
+            
+        </div>
+        <div style="display:flex;align-items: center">
+            
+            
+            
+            
+            
+            
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener noreferrer" href="https://gohugo.io/">Hugo</a>, theme <a target="_blank" rel="noopener noreferrer" href="https://github.com/Junyi-99/hugo-theme-anubis2">Anubis2</a>.<br>
+            
+
+        </div>
+    </div>
+
+    <p class="h-card vcard">
+
+    <a href=https://jmar.fr/ class="p-name u-url url fn" rel="me"></a>
+
+    
+
+    
+</p>
+
+</footer>
+
+        
+    </div>
+</body>
+</html>

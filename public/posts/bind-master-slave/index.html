@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+
+<html lang="fr-fr" data-theme="">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>Serveur Bind en master/slave - jmar.fr</title>
+
+<meta name="description" content="# Installer bind Installation de bind via l&rsquo;outil de gestion de paquet du système: apt/yum/emerge
+apt-get/yum install named emerge -av bind # Configuration du Master Génération de la clé de transfert entre NS1 et NS2 /usr/sbin/dnssec-keygen -a HMAC-MD5 -b 512 -r /dev/urandom -n HOST ns2 Fichier /etc/named.conf options { directory &#34;/var/cache/bind&#34;; // If there is a firewall between you and nameservers you want // to talk to, you may need to fix the firewall to allow multiple // ports to talk.">
+
+
+
+
+
+<link rel="icon" type="image/x-icon" href="https://jmar.fr/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://jmar.fr/favicon.png">
+
+
+
+
+
+
+
+
+    
+
+
+
+<style>
+  body {
+    visibility: hidden;
+    opacity: 0;
+  }
+</style>
+
+<noscript>
+  <style>
+    body {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</noscript>
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.42c77dbe264b081b6f3745aedeb79de572b52fe570748653a57a0f103228f037.css" integrity="sha256-Qsd9viZLCBtvN0Wu3red5XK1L&#43;VwdIZTpXoPEDIo8Dc=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.c4c04b3ef88e3d619ad4c7ee5e03048422bc55c4fefdc1f07657c1133670aa22.css" integrity="sha256-xMBLPviOPWGa1MfuXgMEhCK8VcT&#43;/cHwdlfBEzZwqiI=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.21c5d8fe0a79d623b0adc1ce4bd4f6dd2c05cd939c9aaaa966ba7186b1464f4d.css" integrity="sha256-IcXY/gp51iOwrcHOS9T23SwFzZOcmqqpZrpxhrFGT00=">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <script src="/js/script.min.08f04d96386c73c9bf4d160333f8f448c05a6e01c06770542ee0e013954ce930.js" type="text/javascript" charset="utf-8" integrity="sha256-CPBNljhsc8m/TRYDM/j0SMBabgHAZ3BULuDgE5VM6TA="></script>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header class="common-header">
+            
+                <div class="header-top">
+    <div class="header-top-left">
+        <h1 class="site-title noselect">
+    <a href="/">jmar.fr</a>
+</h1>
+
+        
+
+
+
+
+
+
+
+    
+        <div class="theme-switcher">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-sun-high"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg>
+
+
+</span>
+
+        </div>
+    
+
+    <script>
+        const STORAGE_KEY = 'user-color-scheme'
+        const defaultTheme = "light"
+
+        let currentTheme
+        let switchButton
+        let autoDefinedScheme = window.matchMedia('(prefers-color-scheme: dark)')
+
+        function switchTheme(e) {
+            currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+            if (localStorage) localStorage.setItem(STORAGE_KEY, currentTheme);
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            changeGiscusTheme(currentTheme);
+            document.body.dispatchEvent(new CustomEvent(currentTheme + "-theme-set"));
+        }
+
+        const autoChangeScheme = e => {
+            currentTheme = e.matches ? 'dark' : 'light'
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            changeGiscusTheme(currentTheme);
+            document.body.dispatchEvent(new CustomEvent(currentTheme + "-theme-set"));
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            switchButton = document.querySelector('.theme-switcher')
+            currentTheme = detectCurrentScheme()
+
+            if (currentTheme === 'auto') {
+                autoChangeScheme(autoDefinedScheme);
+                autoDefinedScheme.addListener(autoChangeScheme);
+            } else {
+                document.documentElement.setAttribute('data-theme', currentTheme)
+            }
+
+            if (switchButton) {
+                switchButton.addEventListener('click', switchTheme, false)
+            }
+
+            showContent();
+        })
+
+        function detectCurrentScheme() {
+            if (localStorage !== null && localStorage.getItem(STORAGE_KEY)) {
+                return localStorage.getItem(STORAGE_KEY)
+            }
+            if (defaultTheme) {
+                return defaultTheme
+            }
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function showContent() {
+            document.body.style.visibility = 'visible';
+            document.body.style.opacity = 1;
+        }
+
+        function changeGiscusTheme (theme) {
+            function sendMessage(message) {
+              const iframe = document.querySelector('iframe.giscus-frame');
+              if (!iframe) return;
+              iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+            }
+
+            sendMessage({
+              setConfig: {
+                theme: theme
+              }
+            });
+        }
+    </script>
+
+
+        <ul class="social-icons noselect">
+
+
+    
+        
+        
+        <li>
+            <a href="https://github.com/jmarfr" title="Github" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        
+        
+        <li>
+            <a href="https://github.com/jmapro" title="Github" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        <li>
+            <a href="https://www.linkedin.com/in/jeremy-marmol-55477682/" title="Linkedin" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 11l0 5" /><path d="M8 8l0 .01" /><path d="M12 16l0 -5" /><path d="M16 16v-3a2 2 0 0 0 -4 0" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        <li>
+            <a href="https://twitter.com/jeremymarmol" title="Twitter" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-twitter"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+
+
+
+
+
+    <li>
+            <a href="/index.xml" title="RSS" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rss"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M4 4a16 16 0 0 1 16 16" /><path d="M4 11a9 9 0 0 1 9 9" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+</ul>
+
+    </div>
+    <div class="header-top-right">
+
+    </div>
+</div>
+
+
+    <nav class="noselect">
+        
+        
+        <a class="" href="https://jmar.fr/" title="">Home</a>
+        
+        <a class="" href="https://jmar.fr/posts/" title="">Posts</a>
+        
+    </nav>
+
+
+
+
+
+
+
+
+            
+        </header>
+        <main id="main" tabindex="-1">
+            
+    
+
+    <article class="post h-entry">
+        <div class="post-header">
+            <header>
+                <h1 class="p-name post-title">Serveur Bind en master/slave</h1>
+                
+
+            </header>
+            
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2012-06-02">2012-06-02</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/posts/bind-master-slave/">/posts/bind-master-slave/</a>
+    <a href="https://jmar.fr/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+        
+
+  
+  
+
+
+
+
+  
+  
+  
+  <details class="toc noselect">
+    <summary>Table of Contents</summary>
+    <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#installer-bind">Installer bind</a></li>
+    <li><a href="#configuration-du-master">Configuration du Master</a></li>
+    <li><a href="#configuration-du-slave">Configuration du Slave</a>
+      <ul>
+        <li><a href="#dernière-étape">Dernière étape</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  </details>
+  
+
+
+
+<script>
+  var toc = document.querySelector(".toc");
+  if (toc) {
+    toc.addEventListener("click", function () {
+      if (event.target.tagName !== "A") {
+        event.preventDefault();
+        if (this.open) {
+          this.open = false;
+          this.classList.remove("expanded");
+        } else {
+          this.open = true;
+          this.classList.add("expanded");
+        }
+      }
+    });
+  }
+</script>
+
+        <div class="content e-content">
+            <h2 id="installer-bind" >
+<div>
+    <a href="#installer-bind">
+        #
+    </a>
+    Installer bind
+</div>
+</h2>
+<p>Installation de bind via l&rsquo;outil de gestion de paquet du système: apt/yum/emerge</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt-get/yum install named
+</span></span><span style="display:flex;"><span>emerge -av <span style="color:#ff5c57">bind</span>
+</span></span></code></pre></div><h2 id="configuration-du-master" >
+<div>
+    <a href="#configuration-du-master">
+        #
+    </a>
+    Configuration du Master
+</div>
+</h2>
+<ul>
+<li>Génération de la clé de transfert entre NS1 et NS2</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/sbin/dnssec-keygen -a HMAC-MD5 -b <span style="color:#ff9f43">512</span> -r /dev/urandom -n HOST ns2
+</span></span></code></pre></div><ul>
+<li>Fichier /etc/named.conf</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bind" data-lang="bind"><span style="display:flex;"><span> <span style="color:#ff5c57">options</span> <span style="color:#ff5c57">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">directory</span> <span style="color:#ff5c57">&#34;/var/cache/bind&#34;</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">If</span> <span style="color:#ff5c57">there</span> <span style="color:#ff5c57">is</span> <span style="color:#ff5c57">a</span> <span style="color:#ff5c57">firewall</span> <span style="color:#ff5c57">between</span> <span style="color:#ff5c57">you</span> <span style="color:#ff5c57">and</span> <span style="color:#ff5c57">nameservers</span> <span style="color:#ff5c57">you</span> <span style="color:#ff5c57">want</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">to</span> <span style="color:#ff5c57">talk</span> <span style="color:#ff5c57">to,</span> <span style="color:#ff5c57">you</span> <span style="color:#ff5c57">may</span> <span style="color:#ff5c57">need</span> <span style="color:#ff5c57">to</span> <span style="color:#ff5c57">fix</span> <span style="color:#ff5c57">the</span> <span style="color:#ff5c57">firewall</span> <span style="color:#ff5c57">to</span> <span style="color:#ff5c57">allow</span> <span style="color:#ff5c57">multiple</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">ports</span> <span style="color:#ff5c57">to</span> talk.  <span style="color:#ff5c57">See</span> <span style="color:#ff5c57">http://</span><span style="color:#f3f99d">www.kb.cert.org</span><span style="color:#ff5c57">/vuls/id/</span><span style="color:#5af78e">800113</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">If</span> <span style="color:#ff5c57">your</span> <span style="color:#ff5c57">ISP</span> <span style="color:#ff5c57">provided</span> <span style="color:#ff5c57">one</span> <span style="color:#ff5c57">or</span> <span style="color:#ff5c57">more</span> <span style="color:#ff5c57">IP</span> <span style="color:#ff5c57">addresses</span> <span style="color:#ff5c57">for</span> <span style="color:#ff5c57">stable</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">nameservers,</span> <span style="color:#ff5c57">you</span> <span style="color:#ff5c57">probably</span> <span style="color:#ff5c57">want</span> <span style="color:#ff5c57">to</span> <span style="color:#ff5c57">use</span> <span style="color:#ff5c57">them</span> <span style="color:#ff5c57">as</span> forwarders.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">Uncomment</span> <span style="color:#ff5c57">the</span> <span style="color:#ff5c57">following</span> <span style="color:#ff5c57">block,</span> <span style="color:#ff5c57">and</span> <span style="color:#ff5c57">insert</span> <span style="color:#ff5c57">the</span> <span style="color:#ff5c57">addresses</span> <span style="color:#ff5c57">replacing</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">the</span> <span style="color:#ff5c57">all-</span><span style="color:#5af78e">0</span><span style="color:#ff5c57">\&#39;s</span> placeholder.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">forwarders</span> <span style="color:#ff5c57">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span>     <span style="color:#ff9f43">0.0.0.0</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">}</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">auth-nxdomain</span> <span style="color:#ff5c57">no</span><span style="color:#78787e">;    # conform to RFC1035</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">listen-on-v6</span> <span style="color:#ff5c57">{</span> <span style="color:#ff5c57">any</span><span style="color:#78787e">; };</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">dnssec-enable</span> <span style="color:#ff5c57">yes</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">Le</span> <span style="color:#ff5c57">transfert</span> <span style="color:#ff5c57">se</span> <span style="color:#ff5c57">fait</span> <span style="color:#ff5c57">ici</span> <span style="color:#ff5c57">par</span> <span style="color:#ff5c57">une</span> <span style="color:#ff5c57">clé</span> <span style="color:#ff5c57">présente</span> <span style="color:#ff5c57">sur</span> <span style="color:#ff5c57">les</span> <span style="color:#ff5c57">deux</span> serveurs.
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">allow-transfer</span> <span style="color:#ff5c57">{</span> <span style="color:#ff5c57">key</span> <span style="color:#ff5c57">ns1-ns2</span><span style="color:#78787e">; };</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">Si</span> <span style="color:#ff5c57">la</span> <span style="color:#ff5c57">zone</span> <span style="color:#ff5c57">n&#39;existe</span> <span style="color:#ff5c57">pas</span> <span style="color:#ff5c57">sur</span> <span style="color:#ff5c57">le</span> <span style="color:#ff5c57">DNS,</span> <span style="color:#ff5c57">alors</span> <span style="color:#ff5c57">on</span> <span style="color:#ff5c57">forward</span> <span style="color:#ff5c57">vers</span> <span style="color:#ff5c57">cette</span> adresse.
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">forwarders</span> <span style="color:#ff5c57">{</span> <span style="color:#ff9f43">10.0.0.1</span><span style="color:#78787e">; }; </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">forward</span> <span style="color:#ff5c57">first</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">}</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">Définition</span> <span style="color:#ff5c57">de</span> <span style="color:#ff5c57">la</span> clé.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">key</span> <span style="color:#ff5c57">&#34;ns1-ns2&#34;</span> <span style="color:#ff5c57">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">algorithm</span> <span style="color:#ff5c57">hmac-md5</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">secret</span> <span style="color:#ff5c57">&#34;---Coller</span> <span style="color:#ff5c57">la</span> <span style="color:#ff5c57">clé</span> <span style="color:#ff5c57">générée</span> <span style="color:#ff5c57">plus</span> <span style="color:#ff5c57">haut---&#34;</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">}</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">include</span> <span style="color:#ff5c57">/etc/bind/</span><span style="color:#f3f99d">zones.conf</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">include</span> <span style="color:#ff5c57">/etc/bind/</span><span style="color:#f3f99d">rndc.key</span><span style="color:#78787e">;</span>
+</span></span></code></pre></div><ul>
+<li>Fichier /etc/bind/zones.conf</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bind" data-lang="bind"><span style="display:flex;"><span>    <span style="color:#ff5c57">zone</span> <span style="color:#ff5c57">&#34;</span><span style="color:#f3f99d">jmar.fr</span><span style="color:#ff5c57">&#34;</span> <span style="color:#ff5c57">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">type</span> <span style="color:#ff5c57">master</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">file</span> <span style="color:#ff5c57">&#34;/etc/bind/zones/</span><span style="color:#f3f99d">jmar.fr</span><span style="color:#ff5c57">&#34;</span><span style="color:#78787e">; </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">}</span><span style="color:#78787e">;</span>
+</span></span></code></pre></div><ul>
+<li>Fichier /etc/bind/zones/jmar.fr</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bind" data-lang="bind"><span style="display:flex;"><span>   <span style="color:#ff5c57">$TTL</span> <span style="color:#5af78e">3</span><span style="color:#ff5c57">D</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">@</span>  <span style="color:#ff6ac1">IN</span>  <span style="color:#ff6ac1">SOA</span> ns1.jmar.fr. hostmaster.linux.lan. (
+</span></span><span style="display:flex;"><span>        <span style="color:#5af78e">199802154</span>       <span style="color:#78787e">; serial, todays date + todays serial </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#5af78e">8</span><span style="color:#ff5c57">H</span>              <span style="color:#78787e">; refresh, seconds</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#5af78e">2</span><span style="color:#ff5c57">H</span>              <span style="color:#78787e">; retry, seconds</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#5af78e">4</span><span style="color:#ff5c57">W</span>              <span style="color:#78787e">; expire, seconds</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#5af78e">1</span><span style="color:#ff5c57">D</span> )            <span style="color:#78787e">; minimum, seconds</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">TXT</span>     <span style="color:#ff5c57">&#34;Linux.LAN,</span> <span style="color:#ff5c57">serving</span> <span style="color:#ff5c57">YOUR</span> <span style="color:#ff5c57">domain</span> <span style="color:#ff5c57">:</span>)<span style="color:#ff5c57">&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">NS</span>      <span style="color:#ff5c57">ns1</span>             <span style="color:#78787e">; Inet Address of name server</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">NS</span>      <span style="color:#ff5c57">ns2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">MX</span>      <span style="color:#5af78e">10</span> <span style="color:#ff5c57">mail</span>        <span style="color:#78787e">; Primary Mail Exchanger</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">A</span>    <span style="color:#ff9f43">88.191.152.102</span> <span style="color:#78787e">; Primary IP</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">localhost</span>    <span style="color:#ff6ac1">A</span>    <span style="color:#ff9f43">127.0.0.1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">ns1</span>          <span style="color:#ff6ac1">A</span>    <span style="color:#ff9f43">10.0.0.145</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">ns2</span>          <span style="color:#ff6ac1">A</span>    <span style="color:#ff9f43">10.0.0.109</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">ns</span>           <span style="color:#ff6ac1">A</span>    <span style="color:#ff9f43">10.0.0.145</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">ns</span>           <span style="color:#ff6ac1">A</span>    <span style="color:#ff9f43">10.0.0.109</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">www</span>          <span style="color:#ff6ac1">A</span>    <span style="color:#ff9f43">10.0.0.1</span>
+</span></span></code></pre></div><h2 id="configuration-du-slave" >
+<div>
+    <a href="#configuration-du-slave">
+        #
+    </a>
+    Configuration du Slave
+</div>
+</h2>
+<p>Comme pour le master, il faut installer bind via l&rsquo;outil de package disponible sur le système (apt / yum / emerge &hellip;)</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bind" data-lang="bind"><span style="display:flex;"><span><span style="color:#ff5c57">//Options</span> <span style="color:#ff5c57">générales</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f3f99d">options</span> <span style="color:#ff5c57">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">directory</span> <span style="color:#ff5c57">&#34;/var/cache/bind&#34;</span><span style="color:#78787e">;  </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">If</span> <span style="color:#ff5c57">there</span> <span style="color:#ff5c57">is</span> <span style="color:#ff5c57">a</span> <span style="color:#ff5c57">firewall</span> <span style="color:#ff5c57">between</span> <span style="color:#ff5c57">you</span> <span style="color:#ff5c57">and</span> <span style="color:#ff5c57">nameservers</span> <span style="color:#ff5c57">you</span> <span style="color:#ff5c57">want</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">to</span> <span style="color:#ff5c57">talk</span> <span style="color:#ff5c57">to,</span> <span style="color:#ff5c57">you</span> <span style="color:#ff5c57">may</span> <span style="color:#ff5c57">need</span> <span style="color:#ff5c57">to</span> <span style="color:#ff5c57">fix</span> <span style="color:#ff5c57">the</span> <span style="color:#ff5c57">firewall</span> <span style="color:#ff5c57">to</span> <span style="color:#ff5c57">allow</span> <span style="color:#ff5c57">multiple</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">ports</span> <span style="color:#ff5c57">to</span> talk.  <span style="color:#ff5c57">See</span> <span style="color:#ff5c57">http://</span><span style="color:#f3f99d">www.kb.cert.org</span><span style="color:#ff5c57">/vuls/id/</span><span style="color:#5af78e">800113</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">If</span> <span style="color:#ff5c57">your</span> <span style="color:#ff5c57">ISP</span> <span style="color:#ff5c57">provided</span> <span style="color:#ff5c57">one</span> <span style="color:#ff5c57">or</span> <span style="color:#ff5c57">more</span> <span style="color:#ff5c57">IP</span> <span style="color:#ff5c57">addresses</span> <span style="color:#ff5c57">for</span> <span style="color:#ff5c57">stable</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">nameservers,</span> <span style="color:#ff5c57">you</span> <span style="color:#ff5c57">probably</span> <span style="color:#ff5c57">want</span> <span style="color:#ff5c57">to</span> <span style="color:#ff5c57">use</span> <span style="color:#ff5c57">them</span> <span style="color:#ff5c57">as</span> forwarders.
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">Uncomment</span> <span style="color:#ff5c57">the</span> <span style="color:#ff5c57">following</span> <span style="color:#ff5c57">block,</span> <span style="color:#ff5c57">and</span> <span style="color:#ff5c57">insert</span> <span style="color:#ff5c57">the</span> <span style="color:#ff5c57">addresses</span> <span style="color:#ff5c57">replacing</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">the</span> <span style="color:#ff5c57">all-</span><span style="color:#5af78e">0</span><span style="color:#ff5c57">\&#39;s</span> placeholder.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">auth-nxdomain</span> <span style="color:#ff5c57">no</span><span style="color:#78787e">;    # conform to RFC1035</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">listen-on-v6</span> <span style="color:#ff5c57">{</span> <span style="color:#ff5c57">any</span><span style="color:#78787e">; };</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">dnssec-enable</span> <span style="color:#ff5c57">yes</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">}</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f3f99d">key</span> <span style="color:#ff5c57">&#34;ns1-ns2&#34;</span> <span style="color:#ff5c57">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">algorithm</span> <span style="color:#ff5c57">hmac-md5</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">secret</span> <span style="color:#ff5c57">&#34;---Coller</span> <span style="color:#ff5c57">ici</span> <span style="color:#ff5c57">la</span> <span style="color:#ff5c57">clé</span> <span style="color:#ff5c57">générée</span> <span style="color:#ff5c57">sur</span> <span style="color:#ff5c57">NS1---&#34;</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">}</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">//</span> <span style="color:#ff5c57">On</span> <span style="color:#ff5c57">définie</span> <span style="color:#ff5c57">la</span> <span style="color:#ff5c57">clé</span> <span style="color:#ff5c57">à</span> <span style="color:#ff5c57">utiliser</span> <span style="color:#ff5c57">pour</span> <span style="color:#ff5c57">communiquer</span> <span style="color:#ff5c57">avec</span> <span style="color:#ff5c57">le</span> master.
+</span></span><span style="display:flex;"><span><span style="color:#f3f99d">server</span> <span style="color:#ff9f43">10.0.0.145</span> <span style="color:#ff5c57">{</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">keys</span> <span style="color:#ff5c57">{</span> <span style="color:#ff5c57">ns1-ns2</span><span style="color:#78787e">; };</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">}</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">//</span> <span style="color:#ff5c57">On</span> <span style="color:#ff5c57">définie</span> <span style="color:#ff5c57">qui</span> <span style="color:#ff5c57">peut</span> <span style="color:#ff5c57">utiliser</span> <span style="color:#ff5c57">RNDC</span> (<span style="color:#ff5c57">ici</span> <span style="color:#ff5c57">localhost</span> <span style="color:#ff5c57">et</span> <span style="color:#ff5c57">le</span> <span style="color:#ff5c57">master</span>) 
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">//</span> <span style="color:#ff5c57">avec</span> <span style="color:#ff5c57">la</span> <span style="color:#ff5c57">clé</span> rndc.key. <span style="color:#ff5c57">La</span> <span style="color:#ff5c57">clé</span> <span style="color:#ff5c57">doit</span> <span style="color:#ff5c57">être</span> <span style="color:#ff5c57">identique</span> <span style="color:#ff5c57">à</span> <span style="color:#ff5c57">celle</span> <span style="color:#ff5c57">de</span> NS1.
+</span></span><span style="display:flex;"><span><span style="color:#f3f99d">controls</span> <span style="color:#ff5c57">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">inet</span> <span style="color:#ff5c57">*</span> <span style="color:#ff5c57">allow</span> <span style="color:#ff5c57">{</span> <span style="color:#ff9f43">127.0.0.1</span><span style="color:#78787e">; 10.0.0.145; } keys { &#34;rndc-key&#34;; };</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff5c57">}</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f3f99d">include</span> <span style="color:#ff5c57">/etc/bind/</span><span style="color:#f3f99d">zones.conf</span>
+</span></span><span style="display:flex;"><span><span style="color:#f3f99d">include</span> <span style="color:#ff5c57">/etc/bind/</span><span style="color:#f3f99d">rndc.conf</span>
+</span></span></code></pre></div><ul>
+<li>/etc/bind/zones.conf</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bind" data-lang="bind"><span style="display:flex;"><span><span style="color:#f3f99d">zone</span> <span style="color:#ff5c57">&#34;</span><span style="color:#f3f99d">jmar.fr</span><span style="color:#ff5c57">&#34;</span> <span style="color:#ff5c57">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//Zone</span> <span style="color:#ff5c57">esclave</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">type</span> <span style="color:#ff5c57">slave</span><span style="color:#78787e">;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//emplacement</span> <span style="color:#ff5c57">du</span> <span style="color:#ff5c57">fichier</span> <span style="color:#ff5c57">de</span> zone. <span style="color:#ff5c57">Ne</span> <span style="color:#ff5c57">pas</span> <span style="color:#ff5c57">toucher</span> <span style="color:#ff5c57">aux</span> <span style="color:#ff5c57">fichiers</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">file</span> <span style="color:#ff5c57">&#34;/etc/bind/zones/</span><span style="color:#f3f99d">slave_jmar.fr</span><span style="color:#ff5c57">&#34;</span><span style="color:#78787e">; </span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">Addresse</span> <span style="color:#ff5c57">du</span> <span style="color:#ff5c57">master</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">masters</span> <span style="color:#ff5c57">{</span> <span style="color:#ff9f43">10.0.0.145</span><span style="color:#78787e">; }; </span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">//</span> <span style="color:#ff5c57">Autorise</span> <span style="color:#ff5c57">le</span> <span style="color:#ff5c57">serveur</span> <span style="color:#ff5c57">master</span> <span style="color:#ff5c57">à</span> <span style="color:#ff5c57">mettre</span> <span style="color:#ff5c57">à</span> <span style="color:#ff5c57">jour</span> <span style="color:#ff5c57">la</span> zone.
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">allow-notify</span> <span style="color:#ff5c57">{</span> <span style="color:#ff9f43">10.0.0.145</span><span style="color:#78787e">; }; </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">}</span><span style="color:#78787e">;</span>
+</span></span></code></pre></div><h3 id="dernière-étape" >
+<div>
+    <a href="#derni%c3%a8re-%c3%a9tape">
+        ##
+    </a>
+    Dernière étape
+</div>
+</h3>
+<p>Configurer <strong>ntpd</strong> pour que les deux serveurs soient à la même heure</p>
+
+        </div>
+
+    </article>
+
+    
+    
+
+    
+        
+        
+    
+
+    
+
+    
+        
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+        </main>
+        
+            <footer class="common-footer noselect">
+    
+    
+
+    <div class="common-footer-bottom">
+        
+
+        <div style="display: flex; align-items: center; gap:8px">
+            © Jérémy Marmol, 2024
+            
+        </div>
+        <div style="display:flex;align-items: center">
+            
+            
+            
+            
+            
+            
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener noreferrer" href="https://gohugo.io/">Hugo</a>, theme <a target="_blank" rel="noopener noreferrer" href="https://github.com/Junyi-99/hugo-theme-anubis2">Anubis2</a>.<br>
+            
+
+        </div>
+    </div>
+
+    <p class="h-card vcard">
+
+    <a href=https://jmar.fr/ class="p-name u-url url fn" rel="me"></a>
+
+    
+
+    
+</p>
+
+</footer>
+
+        
+    </div>
+</body>
+</html>
