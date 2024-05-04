@@ -56,6 +56,7 @@ jobs:
       - build-and-push-image
     container:
       image: argoproj/argocd
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: deploy
         env:
