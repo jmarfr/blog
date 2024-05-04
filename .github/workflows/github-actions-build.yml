@@ -1,3 +1,4 @@
+# argocd app actions run argocd/blog restart --kind Rollout --resource-name blog
 name: Build blog docker image
 on:
   push:
@@ -49,3 +50,13 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+  deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: argoproj/argocd
+    steps:
+      - name: deploy
+        env:
+          ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_AUTH_TOKEN }}
+        run: |
+          argocd app actions run blog restart --kind Deployment --group apps --resource-name blog --grpc-web --auth-token ${ARGOCD_AUTH_TOKEN}
